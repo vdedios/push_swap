@@ -33,7 +33,7 @@ $(TESTS): 		$(TESTS_OBJS)
 tests: 			$(OBJ_DIR) $(TESTS)
 
 .PHONY:			clean
-clean:	
+clean:
 				@$(RM) $(OBJ_DIR)
 
 .PHONY:			fclean
