@@ -1,56 +1,44 @@
 # ENVS
 CC=gcc
-RM = rm -rf
 CFLAGS=-g -Wall -Wextra -Werror
-LFLAGS=-I includes/
+RM = rm -rf
 
-CHECKER=checker
-PUSH_SWAP=push_swap
-TESTS=test
+TESTS=run
 
-SRC_DIR=srcs/
 OBJ_DIR=objs/
+TESTS_OBJ_DIR=objs/tests/
 TESTS_DIR=tests/
 
-SRC_FILES = instructions/swap.c
-
-TEST_FILES = tests.c \
-			 t_swap.c			
-
-OBJ_FILES=$(SRC_FILES:.c=.o)
-OBJS=$(addprefix $(OBJ_DIR), $(OBJ_FILES))
-
-TESTS_OBJ_FILES=$(TESTS_FILES:.c=.o)
-TESTS_OBJS=$(addprefix $(OBJ_DIR)/tests, $(TESTS_OBJ_FILES))
+TESTS_FILES= t_swap.c			
+TESTS_OBJS=$(addprefix $(TESTS_OBJ_DIR), $(TESTS_FILES:.c=.o))
 
 
-# DEPENDENCIES
+# TARGETS
+.PHONY:			all
+all: 			$(OBJ_DIR) $(TESTS)
 
 $(OBJ_DIR):		
 				@mkdir -p $(OBJ_DIR)
-				@mkdir -p $(OBJ_DIR)/instructions
 				@mkdir -p $(OBJ_DIR)/tests
 
-$(OBJ_DIR)%.o:	$(SRC_DIR)%.c
+$(TESTS_OBJ_DIR)%.o:	$(TESTS_DIR)%.c
 				@$(CC) $(LFLAGS) $(CFLAGS) -c $< -o $@
 
 $(TESTS): 		$(TESTS_OBJS)
-				@$(CC) $(LFLAGS) $(CFLAGS) $(TESTS_OBJS) $(OBJS) -o tests/$(TESTS)
+				$(CC) $(LFLAGS) $(CFLAGS) $(TESTS_OBJS) -o tests/$@
 
 # RULES
 
-all: 			$(OBJ_DIR) $(TESTS)
+.PHONY:			tests
+tests: 			$(OBJ_DIR) $(TESTS)
 
-test: 			$(OBJ_DIR) $(TESTS)
-
+.PHONY:			clean
 clean:	
 				@$(RM) $(OBJ_DIR)
 
+.PHONY:			fclean
 fclean: 		clean
-				@$(RM) $(CHECKER)
-				@$(RM) $(PUSH_SWAP).dSYM
+				@$(RM) $(TESTS_DIR)$(TESTS)
 
+.PHONY:			re
 re: 			fclean all
-
-
-.PHONY: all test clean fclean re
