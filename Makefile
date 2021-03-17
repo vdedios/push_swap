@@ -1,9 +1,6 @@
 # ENVS
-CC=gcc
 CFLAGS=-g -Wall -Wextra -Werror
-RM = rm -rf
-
-TESTS=run
+NAME=run
 
 OBJ_DIR=objs/
 TESTS_OBJ_DIR=objs/tests/
@@ -15,7 +12,7 @@ TESTS_OBJS=$(addprefix $(TESTS_OBJ_DIR), $(TESTS_FILES:.c=.o))
 
 # TARGETS
 .PHONY:			all
-all: 			$(OBJ_DIR) $(TESTS)
+all: 			$(OBJ_DIR) $(NAME)
 
 $(OBJ_DIR):		
 				@mkdir -p $(OBJ_DIR)
@@ -24,8 +21,8 @@ $(OBJ_DIR):
 $(TESTS_OBJ_DIR)%.o:	$(TESTS_DIR)%.c
 				@$(CC) $(LFLAGS) $(CFLAGS) -c $< -o $@
 
-$(TESTS): 		$(TESTS_OBJS)
-				$(CC) $(LFLAGS) $(CFLAGS) $(TESTS_OBJS) -o tests/$@
+$(NAME): 		$(TESTS_OBJS)
+				$(CC) $(LFLAGS) $(CFLAGS) $(TESTS_OBJS) -o $(TESTS_DIR)$(NAME)
 
 # RULES
 
@@ -34,11 +31,11 @@ tests: 			$(OBJ_DIR) $(TESTS)
 
 .PHONY:			clean
 clean:
-				@$(RM) $(OBJ_DIR)
+				@rm -rf $(OBJ_DIR)
 
 .PHONY:			fclean
 fclean: 		clean
-				@$(RM) $(TESTS_DIR)$(TESTS)
+				@rm -rf $(TESTS_DIR)$(NAME)
 
 .PHONY:			re
 re: 			fclean all
