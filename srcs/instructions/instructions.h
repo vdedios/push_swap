@@ -28,10 +28,4 @@ void            swap(t_element **stack);
 void            rot_rev(t_element **stack);
 void            rot(t_element *stack);
 
-/*
-** Stack creation
-*/
-
-t_element       *crt_stack(char *str);
-
 #endif

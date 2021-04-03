@@ -44,18 +44,24 @@ size_t      lst_len(t_element *stack)
     return(len);
 }
 
-void        lst_print(t_element *stack)
+static void print_element(int value)
 {
     char *char_value;
 
+    char_value = ft_itoa(value);
+    write(1, char_value, ft_strlen(char_value));
+    write(1, "\n", 1);
+    free(char_value);
+}
+
+void        lst_print(t_element *stack)
+{
     while (stack->next)
     {
-        char_value = ft_itoa(stack->value);
-        write(1, char_value, ft_strlen(char_value));
-        write(1, "\n", 1);
-        free(char_value);
+        print_element(stack->value);
         stack = stack->next;
     }
+    print_element(stack->value);
 }
 
 void        lst_add(t_element **stack, int value)
@@ -65,7 +71,7 @@ void        lst_add(t_element **stack, int value)
 
 	if (stack)
 	{
-        if (!(new = malloc(sizeof(t_element))))
+        if ((new = malloc(sizeof(t_element))))
         {
             new->value = value;
             new->next = NULL;

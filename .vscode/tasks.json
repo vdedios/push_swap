@@ -1,0 +1,16 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build",
+            "type": "shell",
+            "command": "cd /Users/Victor/Desktop/42/push_swap/srcs/instructions && gcc -Wall -Werror -Wextra -g example.c ../../dependencies/get_next_line/get_next_line.c ../../dependencies/libft/libft.a crt_stack.c utils.c",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        }
+    ]
+}
