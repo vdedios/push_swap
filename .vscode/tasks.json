@@ -6,7 +6,7 @@
         {
             "label": "Build",
             "type": "shell",
-            "command": "cd /Users/Victor/Desktop/42/push_swap/srcs/instructions && gcc -Wall -Werror -Wextra -g example.c ../../dependencies/get_next_line/get_next_line.c ../../dependencies/libft/libft.a crt_stack.c utils.c",
+            "command": "cd /Users/Victor/Desktop/42/push_swap/srcs && gcc -Wall -Werror -Wextra -g example.c ../dependencies/libft/libft.a ./common/crt_stack.c ./common/user.c ./common/stack_utils.c ./instructions/utils.c ../dependencies/get_next_line/get_next_line.c ./common/crt_instructions.c",
             "group": {
                 "kind": "build",
                 "isDefault": true

@@ -21,6 +21,12 @@ void        error();
 t_element   *crt_stack(char *str);
 
 /*
+** Instruction set creation
+*/
+
+char        **crt_instructions(char *input);
+
+/*
 ** Stack utils
 */
 
