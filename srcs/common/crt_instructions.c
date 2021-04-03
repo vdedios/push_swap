@@ -1,12 +1,12 @@
 #include "common.h"
 
-static short contains(char *instruction)
+static short            get_code(char *instruction)
 {
     int i;
 	static char	*set[] = {
-        "sa", "sb", "ss"
-        "ra", "rb", "rr"
-        "rra", "rrb", "rrr"
+        "sa", "sb", "ss",
+        "ra", "rb", "rr",
+        "rra", "rrb", "rrr",
         "pa", "pb"
 	};
 
@@ -14,27 +14,49 @@ static short contains(char *instruction)
     while (set[i])
     {
         if (!ft_strncmp(set[i], instruction, ft_strlen(instruction)))
-            return (1);
+            return (i);
         i++;
     }
-    return (0);
+    return (i);
 }
 
-static void check_instructions_format(char **instructions)
+static int              ft_matrix_len(char **instructions)
 {
-    while (*instructions)
+    int len;
+
+    len = 0;
+    while (instructions[len])
+        len++;
+    return (len);
+}
+
+static t_instruction    instruction_codes(char **s_instructions)
+{
+    size_t          i;
+    short           *codes;
+    t_instruction   instructions;
+
+    i = 0;
+    instructions.len = ft_matrix_len(s_instructions);
+    if ((codes = malloc(instructions.len * sizeof(short))))
     {
-        if (!contains(*instructions))
-            error();
-        instructions++;
+        while (*s_instructions)
+        {
+            if ((codes[i] = get_code(*s_instructions)) > 10)
+                error();
+            s_instructions++;
+            i++;
+        }
+        instructions.codes = codes;
+        return (instructions);
     }
+    return (instructions);
 }
 
-char        **crt_instructions(char *input)
+t_instruction           crt_instructions(char *input)
 {
-    char **instructions;
+    char    **instructions;
     
     instructions = ft_split(input, ' ');
-    check_instructions_format(instructions);
-    return (instructions);
+    return (instruction_codes(instructions));
 }
