@@ -11,13 +11,20 @@
 ** User interface
 */
 
-void    input(char *message, char **line);
-void    error();
+void        input(char *message, char **line);
+void        error();
 
 /*
 ** Stack creation
 */
 
-t_element       *crt_stack(char *str);
+t_element   *crt_stack(char *str);
+
+/*
+** Stack utils
+*/
+
+void        lst_print(t_element *stack);
+void        lst_add(t_element **stack, int value);
 
 #endif
