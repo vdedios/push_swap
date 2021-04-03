@@ -27,7 +27,8 @@ $(NAME): 		$(TESTS_OBJS)
 # RULES
 
 .PHONY:			tests
-tests: 			$(OBJ_DIR) $(TESTS)
+tests: 			
+				make -C tests
 
 .PHONY:			clean
 clean:

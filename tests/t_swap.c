@@ -1,8 +1,8 @@
-#include <stdio.h>
+#include "tests.h"
 
-int main() {
+void test_swap()
+{
+    char    *str = "Hello World!";
 
-    printf("Hello World!\n");
-
-    return (0);
+    ft_echo(str);
 }
