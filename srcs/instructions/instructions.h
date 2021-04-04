@@ -37,5 +37,7 @@ void            rot_ab(t_element **stack_a, t_element **stack_b);
 void            rot_rev_a(t_element **stack_a, t_element **stack_b);
 void            rot_rev_b(t_element **stack_a, t_element **stack_b);
 void            rot_rev_ab(t_element **stack_a, t_element **stack_b);
+void            push_a(t_element **stack_a, t_element **stack_b);
+void            push_b(t_element **stack_a, t_element **stack_b);
 
 #endif

@@ -1,8 +1,24 @@
-#include <stdio.h>
+#include "instructions.h"
 
-int main() {
+static void push(t_element **origin, t_element **dest)
+{
+    t_element *aux;
 
-    printf("Hello World!\n");
+    if (origin)
+    {
+        aux = (*origin)->next;
+        (*origin)->next = *dest;
+        *dest = *origin;
+        *origin = aux;
+    }
+}
 
-    return (0);
+void push_a(t_element **stack_a, t_element **stack_b)
+{
+    push(stack_b, stack_a);
+}
+
+void push_b(t_element **stack_a, t_element **stack_b)
+{
+    push(stack_a, stack_b);
 }
