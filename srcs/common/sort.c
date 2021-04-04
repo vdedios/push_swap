@@ -1,6 +1,6 @@
 #include "common.h"
 
-void sort(t_instruction instructions, t_element *stack)
+void sort(t_instruction instructions, t_element **stack)
 {
     size_t      i;
 	static void (*f_instructions[])(t_element **stack) = {
@@ -10,7 +10,7 @@ void sort(t_instruction instructions, t_element *stack)
     i = 0;
     while (i < instructions.len)
     {
-        f_instructions[i](&stack);
+        f_instructions[instructions.codes[i]](stack);
         i++;
     }
 }
