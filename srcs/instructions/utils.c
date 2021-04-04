@@ -6,7 +6,7 @@ t_element   *lst_goto(t_element *stack, short pos)
     {
         return (0);
     }
-    while (pos)
+    while (pos > 0)
     {
         stack = stack->next;
         pos--;
