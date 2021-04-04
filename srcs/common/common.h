@@ -33,4 +33,10 @@ t_instruction   crt_instructions(char *input);
 void            lst_print(t_element *stack);
 void            lst_add(t_element **stack, int value);
 
+/*
+** Sorting
+*/
+
+void sort(t_instruction instructions, t_element *stack);
+
 #endif

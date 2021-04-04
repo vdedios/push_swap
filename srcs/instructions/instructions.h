@@ -30,6 +30,6 @@ size_t          lst_len(t_element *stack);
 
 void            swap(t_element **stack);
 void            rot_rev(t_element **stack);
-void            rot(t_element *stack);
+void            rot(t_element **stack);
 
 #endif

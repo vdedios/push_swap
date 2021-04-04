@@ -1,6 +1,6 @@
 #include "instructions.h"
 
-void rot(t_element *stack)
+void rot(t_element **stack)
 {
     t_element *last;
 
