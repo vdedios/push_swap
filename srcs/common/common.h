@@ -11,20 +11,19 @@
 ** User interface
 */
 
-void            input(char *message, char **line);
 void            error();
 
 /*
 ** Stack creation
 */
 
-t_element       *crt_stack(char *str);
+t_element       *crt_stack(char **els);
 
 /*
 ** Instruction set creation
 */
 
-t_instruction   crt_instructions(char *input);
+t_element   *read_instructions();
 
 /*
 ** Stack utils
@@ -37,6 +36,7 @@ void            lst_add(t_element **stack, int value);
 ** Sorting
 */
 
-void sort(t_instruction instructions, t_element **stack_a, t_element **stack_b);
+void            sort(t_element *instructions,
+                        t_element **stack_a, t_element **stack_b);
 
 #endif

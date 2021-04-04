@@ -29,17 +29,18 @@ int		get_next_line(char **line)
 
 	if (!(*line = malloc(sizeof(char))))
 		return (-1);
-	**line = '\0';
 	buffer = 0;
-	output = 1;
+	**line = '\0';
+	output = read(0, &buffer, 1);
 	while (output)
 	{
-		if ((output = read(0, &buffer, 1)) == -1)
+		if (output == -1)
 			return (-1);
 		if (buffer == '\n')
 			break;
 		if (!(*line = add_char(*line, buffer)))
 			return (-1);
+		output = read(0, &buffer, 1);
 	}
 	return (output);
 }

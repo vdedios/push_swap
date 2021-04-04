@@ -38,13 +38,11 @@ static void        clean_matrix(char **str)
     }
 }
 
-t_element           *crt_stack(char *str)
+t_element           *crt_stack(char **els)
 {
     t_element   *stack;
-    char        **els;
 
     stack = NULL;
-    els = ft_split(str, ' ');
     while (*els)
     {
         lst_add(&stack, simple_atoi(*els));

@@ -10,7 +10,7 @@ static void print_element(int value)
     free(char_value);
 }
 
-void lst_print(char *msg, t_element *stack)
+void        lst_print(char *msg, t_element *stack)
 {
     ft_putstr_fd(msg, 1);
     if (stack)
@@ -43,7 +43,7 @@ static void check_el_duplicate(t_element *stack, int value)
     }
 }
 
-void lst_add(t_element **stack, int value)
+void        lst_add(t_element **stack, int value)
 {
     t_element *new;
     t_element *last;

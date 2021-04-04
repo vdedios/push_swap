@@ -10,12 +10,6 @@ typedef struct	s_element {
     void        *next;
 }				t_element;
 
-typedef struct	s_instruction {
-    short       *codes;
-    size_t      len;
-}				t_instruction;
-
-
 /*
 ** Instructions util functions
 */
