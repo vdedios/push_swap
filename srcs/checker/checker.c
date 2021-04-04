@@ -31,10 +31,12 @@ int         main(int argc, char **argv)
 
     if (argc < 2)
         exit(0);
-    instructions = read_instructions();
     stack_a = crt_stack(&argv[1]);
     stack_b = NULL;
+    instructions = read_instructions();
     sort(instructions, &stack_a, &stack_b);
+    //lst_print("STACK A:\n", stack_a);
+    //lst_print("STACK B:\n", stack_b);
     inspect_order(stack_a, stack_b);
     return (0);
 }
