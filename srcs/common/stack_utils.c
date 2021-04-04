@@ -10,14 +10,22 @@ static void print_element(int value)
     free(char_value);
 }
 
-void lst_print(t_element *stack)
+void lst_print(char *msg, t_element *stack)
 {
-    while (stack->next)
+    ft_putstr_fd(msg, 1);
+    if (stack)
     {
+        while (stack->next)
+        {
+            print_element(stack->value);
+            stack = stack->next;
+        }
         print_element(stack->value);
-        stack = stack->next;
     }
-    print_element(stack->value);
+    else
+    {
+        ft_putstr_fd("(empty)\n", 1);
+    }
 }
 
 static void check_el_duplicate(t_element *stack, int value)

@@ -28,8 +28,14 @@ size_t          lst_len(t_element *stack);
 ** Instructions
 */
 
-void            swap(t_element **stack);
-void            rot_rev(t_element **stack);
-void            rot(t_element **stack);
+void            swap_a(t_element **stack_a, t_element **stack_b);
+void            swap_b(t_element **stack_a, t_element **stack_b);
+void            swap_ab(t_element **stack_a, t_element **stack_b);
+void            rot_a(t_element **stack_a, t_element **stack_b);
+void            rot_b(t_element **stack_a, t_element **stack_b);
+void            rot_ab(t_element **stack_a, t_element **stack_b);
+void            rot_rev_a(t_element **stack_a, t_element **stack_b);
+void            rot_rev_b(t_element **stack_a, t_element **stack_b);
+void            rot_rev_ab(t_element **stack_a, t_element **stack_b);
 
 #endif
