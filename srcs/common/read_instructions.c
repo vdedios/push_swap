@@ -13,7 +13,8 @@ static int      get_code(char *instruction)
     i = 0;
     while (set[i])
     {
-        if (!ft_strncmp(set[i], instruction, ft_strlen(instruction)))
+        if (!ft_strncmp(set[i], instruction, ft_strlen(instruction))
+            && !set[i][ft_strlen(instruction)])
             return (i);
         i++;
     }
@@ -50,9 +51,10 @@ t_element       *read_instructions()
 
     instructions = NULL;
     read = get_next_line(&line);
-    while (*line && *line != '\n')
+    while (read)
     {
-        add_instruction(&instructions, line);
+        if (*line && *line !='\n')
+            add_instruction(&instructions, line);
         free(line);
         read = get_next_line(&line);
     }
