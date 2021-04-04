@@ -12,8 +12,7 @@ int main(int argc, char **argv)
     instructions = read_instructions();
     stack_a = crt_stack(&argv[1]);
     stack_b = NULL;
-    //sort(instructions, &stack_a, &stack_b);
-    lst_print("INSTRUCTIONS:\n", instructions);
+    sort(instructions, &stack_a, &stack_b);
     lst_print("STACK A:\n", stack_a);
     lst_print("STACK B:\n", stack_b);
     //chequear orden

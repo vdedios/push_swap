@@ -4,7 +4,7 @@ static void push(t_element **origin, t_element **dest)
 {
     t_element *aux;
 
-    if (origin)
+    if (*origin)
     {
         aux = (*origin)->next;
         (*origin)->next = *dest;

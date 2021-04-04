@@ -9,9 +9,13 @@ void sort(t_element *instructions, t_element **stack_a, t_element **stack_b)
         &push_a, &push_b
     };
 
-    while (instructions->next)
+    if (instructions)
     {
+        while (instructions->next)
+        {
+            f_instructions[instructions->value](stack_a, stack_b);
+            instructions = instructions->next;
+        }
         f_instructions[instructions->value](stack_a, stack_b);
-        instructions = instructions->next;
     }
 }
