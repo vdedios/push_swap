@@ -6,7 +6,7 @@ static void print_element(int value)
 
     char_value = ft_itoa(value);
     write(1, char_value, ft_strlen(char_value));
-    write(1, "\n", 1);
+    write(1, " ", 1);
     free(char_value);
 }
 
@@ -21,6 +21,7 @@ void        lst_print(char *msg, t_element *stack)
             stack = stack->next;
         }
         print_element(stack->value);
+        write(1, "\n", 1);
     }
     else
     {

@@ -5,7 +5,7 @@ static void rot(t_element **stack)
     t_element *last;
     t_element *second;
 
-    if (*stack)
+    if (*stack && (*stack)->next)
     {
         second = (*stack)->next;
         last = lst_last(*stack);
