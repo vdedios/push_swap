@@ -35,8 +35,8 @@ int         main(int argc, char **argv)
     stack_b = NULL;
     instructions = read_instructions();
     sort(instructions, &stack_a, &stack_b);
-    //lst_print("STACK A:\n", stack_a);
-    //lst_print("STACK B:\n", stack_b);
+    lst_print("STACK A:\n", stack_a);
+    lst_print("STACK B:\n", stack_b);
     inspect_order(stack_a, stack_b);
     return (0);
 }
