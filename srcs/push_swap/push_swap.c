@@ -16,30 +16,32 @@ static t_element *split_stack(t_element **stack, int len)
 
 static t_element *merge(t_element *stack_a, t_element *stack_b)
 {
-    int             len;
+    int a_len;
 
-    len = lst_len(stack_a) + 1;
-    while (stack_b->next)
+    a_len = lst_len(stack_a) + 1;
+    while (stack_b && a_len > 0)
     {
         if (stack_a->value < stack_b->value)
+        {
             rot_a(&stack_a, &stack_b);
+            a_len--;
+        }
         else
         {
             push_a(&stack_a, &stack_b);
             rot_a(&stack_a, &stack_b);
         }
     }
-    if(stack_a->value < stack_b->value)
+    while (a_len > 0)
     {
         rot_a(&stack_a, &stack_b);
-        push_a(&stack_a, &stack_b);
+        a_len--;
     }
-    else
+    while (stack_b)
     {
         push_a(&stack_a, &stack_b);
         rot_a(&stack_a, &stack_b);
     }
-    rot_a(&stack_a, &stack_b);
     return (stack_a);
 }
 
