@@ -1,8 +1,4 @@
-#include "../instructions/instructions.h"
-#include "../common/common.h"
-
-#define UP 1
-#define DES 2
+#include "push_swap.h"
 
 static short        is_sorted(t_element *start, t_element *end, short order)
 {
@@ -24,72 +20,21 @@ static short        is_sorted(t_element *start, t_element *end, short order)
     return (1);
 }
 
-static void         split_stack(t_element **stack, t_element **stack_aux)
-{
-    int len;
-
-    len = lst_len(*stack) + 1;
-    while (len > len / 2)
-    {
-        push_b(stack, stack_aux);
-        len--;
-    }
-}
-
-static t_element    *merge(t_element *stack_a, t_element *stack_b)
-{
-    t_element *merged;
-
-    while (stack_a && stack_b)
-    {
-        if (stack_a->value > stack_b->value)
-
-    }
-}
-
-static t_element    *merge_sort(t_element *stack)
-{
-    t_element *stack_aux;
-
-    stack_aux = NULL;
-    if (lst_len(stack))
-    {
-        split_stack(&stack, &stack_aux);
-        stack = merge_sort(stack);
-        stack_aux = merge_sort(stack_aux);
-        return merge(stack, stack_aux);
-    }
-    return (stack);
-}
-
-static t_element    *gen_stack(t_element *start, t_element *end)
-{
-
-    t_element *next;
-    t_element *stack;
-
-    stack = NULL;
-    while (start->next != end->next)
-    {
-        lst_add(&stack, simple_atoi(start->value));
-        start = next;
-    }
-    return (stack);
-}
-
 static int          mid_el(t_element *start, t_element *end)
 {
     int         len;
+    int         it;
     t_element   *stack;
 
-    stack = gen_stack(start, end);
+    it = 0;
+    stack = extract_stack(start, end);
     stack = merge_sort(stack);
     lst_print("[STACK] ", stack);
     len = lst_len(stack) + 1;
-    while(len)
+    while(it < len / 2)
     {
         stack = stack->next;
-        len--;
+        it++;
     }
     return (stack->value);
 }
