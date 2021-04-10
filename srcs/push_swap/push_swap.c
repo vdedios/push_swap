@@ -1,96 +1,118 @@
 #include "../instructions/instructions.h"
 #include "../common/common.h"
 
-static t_element *split_stack(t_element **stack, int len)
-{
-    t_element *aux;
+#define UP 1
+#define DES 2
 
-    aux = NULL;
-    while (len)
+static short        is_sorted(t_element *start, t_element *end, short order)
+{
+    t_element *next;
+
+    while (start->next != end->next)
     {
-        push_b(stack, &aux);
-        ft_putstr_fd("pb\n", 1);
+        next = start->next;
+        if (order == UP && start->value > next->value)
+        {
+            return (0);
+        }
+        if (order == DES && start->value > next->value)
+        {
+            return (0);
+        }
+        start = next;
+    }
+    return (1);
+}
+
+static void         split_stack(t_element **stack, t_element **stack_aux)
+{
+    int len;
+
+    len = lst_len(*stack) + 1;
+    while (len > len / 2)
+    {
+        push_b(stack, stack_aux);
         len--;
     }
-    return (aux);
 }
 
-static void     remove_a(t_element **stack_a, t_element **stack_b, int *a_len)
+static t_element    *merge(t_element *stack_a, t_element *stack_b)
 {
+    t_element *merged;
 
-    rot_a(stack_a, stack_b);
-    ft_putstr_fd("ra\n", 1);
-    *a_len -= 1;
-}
-
-static void     remove_b(t_element **stack_a, t_element **stack_b)
-{
-
-    push_a(stack_a, stack_b);
-    ft_putstr_fd("pa\n", 1);
-    rot_a(stack_a, stack_b);
-    ft_putstr_fd("ra\n", 1);
-}
-
-static short    two_els(t_element **stack_a, t_element **stack_b)
-{
-    if (!(*stack_a)->next && !(*stack_b)->next)
+    while (stack_a && stack_b)
     {
-        if ((*stack_a)->value < (*stack_b)->value)
-            remove_b(stack_a, stack_b);
-        else
-        {
-            push_a(stack_a, stack_b);
-            ft_putstr_fd("pa\n", 1);
-        }
-        return (1);
+        if (stack_a->value > stack_b->value)
+
     }
-    return (0);
 }
 
-static t_element *merge(t_element *stack_a, t_element *stack_b)
+static t_element    *merge_sort(t_element *stack)
 {
-    int a_len;
+    t_element *stack_aux;
 
-    a_len = lst_len(stack_a) + 1;
-    if (two_els(&stack_a, &stack_b))
-        return (stack_a);
-    while (stack_b && a_len > 0)
+    stack_aux = NULL;
+    if (lst_len(stack))
     {
-        if (stack_a->value < stack_b->value)
-            remove_a(&stack_a, &stack_b, &a_len);
-        else
-            remove_b(&stack_a, &stack_b);
+        split_stack(&stack, &stack_aux);
+        stack = merge_sort(stack);
+        stack_aux = merge_sort(stack_aux);
+        return merge(stack, stack_aux);
     }
-    while (a_len > 0)
-        remove_a(&stack_a, &stack_b, &a_len);
-    while (stack_b)
-        remove_b(&stack_a, &stack_b);
-    return (stack_a);
+    return (stack);
 }
 
-static t_element *merge_sort(t_element *stack_a) 
+static t_element    *gen_stack(t_element *start, t_element *end)
 {
-    t_element       *stack_b;
-    int             len;
 
-    len = lst_len(stack_a) + 1;
-    if (len <= 1)
-        return (stack_a);
-    stack_b = split_stack(&stack_a, len / 2);
-    stack_a = merge_sort(stack_a);
-    stack_b = merge_sort(stack_b);
-    return (merge(stack_a, stack_b));
+    t_element *next;
+    t_element *stack;
+
+    stack = NULL;
+    while (start->next != end->next)
+    {
+        lst_add(&stack, simple_atoi(start->value));
+        start = next;
+    }
+    return (stack);
 }
 
-int         main(int argc, char **argv)
+static int          mid_el(t_element *start, t_element *end)
+{
+    int         len;
+    t_element   *stack;
+
+    stack = gen_stack(start, end);
+    stack = merge_sort(stack);
+    lst_print("[STACK] ", stack);
+    len = lst_len(stack) + 1;
+    while(len)
+    {
+        stack = stack->next;
+        len--;
+    }
+    return (stack->value);
+}
+
+static void         sort_stacks(t_element **stack_a, t_element **stack_b)
+{
+    int mid;
+
+    mid = mid_el(*stack_a, NULL);
+    printf("MID_EL: %d\n", mid);
+}
+
+int                 main(int argc, char **argv)
 {
     t_element       *stack_a;
+    t_element       *stack_b;
     if (argc < 2)
         exit(0);
+    stack_b = NULL;
     stack_a = crt_stack(&argv[1]);
-    stack_a = merge_sort(stack_a);
-//    lst_print("> ", stack_a);
+    sort_stacks(&stack_a, &stack_b);
+    //lst_print("[A] ", stack_a);
+    //lst_print("[B] ", stack_b);
     //lst_print("STACK B:\n", stack_b);
     return (0);
 }

@@ -29,7 +29,7 @@ static int		    simple_atoi(const char *nptr)
 	return ((int)(sign * num));
 }
 
-static void        clean_matrix(char **str)
+static void         clean_matrix(char **str)
 {
     while (*str)
     {
