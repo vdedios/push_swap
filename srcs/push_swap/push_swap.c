@@ -4,14 +4,14 @@ static short        is_sorted(t_element *start, t_element *end, short order)
 {
     t_element *next;
 
-    while (start->next != end->next)
+    while (start->next != end)
     {
         next = start->next;
         if (order == UP && start->value > next->value)
         {
             return (0);
         }
-        if (order == DES && start->value > next->value)
+        if (order == DES && start->value < next->value)
         {
             return (0);
         }
@@ -30,6 +30,7 @@ static int          mid_el(t_element *start, t_element *end)
     stack = extract_stack(start, end);
     stack = merge_sort(stack);
     lst_print("[STACK] ", stack);
+    printf("is_sorted: %d\n", is_sorted(stack, NULL, UP));
     len = lst_len(stack) + 1;
     while(it < len / 2)
     {
