@@ -7,6 +7,13 @@
 #include "../instructions/instructions.h"
 #include "../common/common.h"
 
+typedef struct	s_chunk {
+    t_element   *stack;
+    t_element   *start;
+    t_element   *end;
+    char        id;
+}				t_chunk;
+
 /*
 ** Common sorting algorithms
 */
