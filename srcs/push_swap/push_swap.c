@@ -20,18 +20,16 @@ static short is_sorted(t_element *start, t_element *end, short order)
     return (1);
 }
 
-static t_element *mid_el(t_element *start, t_element *end)
+static t_element *mid_el(t_element *start, int len)
 {
-    int len;
     int it;
     t_element *stack;
 
     it = 0;
-    stack = extract_stack(start, end);
+    stack = extract_stack(start, len);
     stack = merge_sort(stack);
     //lst_print("[STACK] ", stack);
     //printf("is_sorted: %d\n", is_sorted(stack, NULL, UP));
-    len = lst_len(stack) + 1;
     while (it < len / 2)
     {
         stack = stack->next;
@@ -40,65 +38,155 @@ static t_element *mid_el(t_element *start, t_element *end)
     return (stack);
 }
 
-static void split_a(t_element **stack_a, t_element **stack_b)
+static int split_a(t_element **stack_a, t_element **stack_b,
+                    int len, t_element *pivot)
 {
-    int len;
+    int rot_rev;
+    int split_len;
 
+    rot_rev = 0;
+    split_len = 0;
     if (*stack_a)
     {
-        len = lst_len(*stack_a) + 1;
         while (len)
         {
             if ((*stack_a)->value < pivot->value)
+            {
                 push_b(stack_a, stack_b);
+                ft_putstr_fd("pb\n", 1);
+                split_len++;
+            }
             else
+            {
+                rot_rev++;
                 rot_a(stack_a, stack_b);
+                ft_putstr_fd("ra\n", 1);
+            }
             len--;
         }
     }
+    while (rot_rev)
+    {
+        rot_rev_a(stack_a, stack_b);
+        ft_putstr_fd("rra\n", 1);
+        rot_rev--;
+    }
+    return (split_len);
 }
 
-static void push_swap(t_chunk *chunk_a, t_chunk *chunk_b)
+static int split_b(t_element **stack_a, t_element **stack_b,
+                    int len, t_element *pivot)
+{
+    int rot_rev;
+    int split_len;
+
+    rot_rev = 0;
+    split_len = 0;
+    if (*stack_b)
+    {
+        while (len)
+        {
+            if ((*stack_b)->value >= pivot->value)
+            {
+                push_a(stack_a, stack_b);
+                ft_putstr_fd("pa\n", 1);
+                split_len++;
+            }
+            else
+            {
+                rot_rev++;
+                rot_b(stack_a, stack_b);
+                ft_putstr_fd("rb\n", 1);
+            }
+            len--;
+        }
+    }
+    while (rot_rev)
+    {
+        rot_rev_b(stack_a, stack_b);
+        ft_putstr_fd("rrb\n", 1);
+        rot_rev--;
+    }
+    return (split_len);
+}
+
+static void undo_split_a(t_element **stack_a, t_element **stack_b,
+                         int len)
+{
+    while (len)
+    {
+        push_b(stack_a, stack_b);
+        ft_putstr_fd("pb\n", 1);
+        len--;
+    }
+}
+
+static void undo_split_b(t_element **stack_a, t_element **stack_b,
+                         int len)
+{
+    while (len)
+    {
+        push_a(stack_a, stack_b);
+        ft_putstr_fd("pa\n", 1);
+        len--;
+    }
+}
+
+static void push_swap(t_element **stack_a, t_element **stack_b,
+                        int len, char stack_id)
 {
     t_element   *pivot;
-    t_chunk     *chunk_a;
-    t_chunk     *chunk_b;
+    int         split_len;
 
-    pivot = mid_el(chunk_a->start, chunk_a->end);
-    //split_a(stack_a, stack_b, start, end);
-    //split_b(stack_a, stack_b, start, end);
-    //push_swap(stack_a, stack_b, start, pivot);
-    //push_swap(stack_a, stack_b, pivot, end);
-}
-
-static t_chunk     *init_chunk(t_element *stack, t_element *start,
-                                t_element *end, char id)
-{
-    t_chunk *chunk;
-
-    if (!(chunk = malloc(sizeof(chunk))))
-        return (NULL);
-    chunk->stack = stack;
-    chunk->start = start;
-    chunk->end = end;
-    chunk->id = id;
-    return (chunk);
+    //lst_print("[A] ", *stack_a);
+    //lst_print("[B] ", *stack_b);
+    if (stack_id == 'a' && len == 2)
+    {
+        if ((*stack_a)->value > ((t_element *)(*stack_a)->next)->value)
+        {
+            swap_a(stack_a, stack_b);
+            ft_putstr_fd("sa\n", 1);
+        }
+    }
+    else if (stack_id == 'a' && len > 2)
+    {
+        pivot = mid_el(*stack_a, len);
+        split_len = split_a(stack_a, stack_b, len, pivot);
+        push_swap(stack_a, stack_b, split_len, 'b');
+        push_swap(stack_a, stack_b, len - split_len, 'a');
+        undo_split_b(stack_a, stack_b, split_len);
+    }
+    else if (stack_id == 'b' && len == 2)
+    {
+        if ((*stack_b)->value < ((t_element *)(*stack_b)->next)->value)
+        {
+            swap_b(stack_a, stack_b);
+            ft_putstr_fd("sb\n", 1);
+        }
+    }
+    else if (stack_id == 'b' && len > 2)
+    {
+        pivot = mid_el(*stack_b, len);
+        split_len = split_b(stack_a, stack_b, len, pivot);
+        push_swap(stack_a, stack_b, split_len, 'a');
+        push_swap(stack_a, stack_b, len - split_len, 'b');
+        undo_split_a(stack_a, stack_b, split_len);
+    }
 }
 
 int main(int argc, char **argv)
 {
-    t_chunk *chunk_a;
-    t_chunk *chunk_b;
-    t_element *stack;
+    t_element   *stack_a;
+    t_element   *stack_b;
+    int         len;
 
     if (argc < 2)
         exit(0);
-    stack = crt_stack(&argv[1]);
-    chunk_a = init_chunk(stack, stack, NULL, 'a');
-    chunk_b = init_chunk(NULL, NULL, NULL, 'b');
-    push_swap(chunk_a, chunk_b);
-    //lst_print("[A] ", stack_a);
-    //lst_print("[B] ", stack_b);
-    //lst_print("STACK B:\n", stack_b);
+    stack_a = crt_stack(&argv[1]);
+    stack_b = NULL;
+    push_swap(&stack_a, &stack_b, lst_len(stack_a) + 1, 'a');
+//    printf("\nRESULT\n");
+//    lst_print("[A] ", stack_a);
+//    lst_print("[B] ", stack_b);
     return (0);
 }

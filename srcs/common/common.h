@@ -18,7 +18,7 @@ void            error();
 */
 
 t_element       *crt_stack(char **els);
-t_element       *extract_stack(t_element *start, t_element *end);
+t_element       *extract_stack(t_element *start, int len);
 
 /*
 ** Instruction set creation

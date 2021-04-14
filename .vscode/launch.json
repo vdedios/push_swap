@@ -9,13 +9,14 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/srcs/a.out",
-            "args": ["6", "1", "0"],
+            "args": ["100", "63", "24", "42", "72", "12", "58", "0", "61", "36", "8"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/srcs",
             "environment": [],
             "externalConsole": true,
             "MIMode": "lldb",
-            "preLaunchTask": "Build"
+            "preLaunchTask": "Build",
+            "postDebugTask": "Close terminal"
         }
     ]
 }

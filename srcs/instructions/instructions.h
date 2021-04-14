@@ -17,6 +17,7 @@ typedef struct	s_element {
 t_element       *lst_goto(t_element *stack, short pos);
 t_element       *lst_last(t_element *stack);
 size_t          lst_len(t_element *stack);
+size_t          lst_len_end(t_element *stack, t_element *end);
 
 /*
 ** Instructions

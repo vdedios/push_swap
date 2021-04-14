@@ -38,17 +38,17 @@ static void         clean_matrix(char **str)
     }
 }
 
-t_element           *extract_stack(t_element *start, t_element *end)
+t_element           *extract_stack(t_element *start, int len)
 {
     t_element *stack;
 
     stack = NULL;
-    while (start->next != end)
+    while (len)
     {
         lst_add(&stack, start->value);
         start = start->next;
+        len--;
     }
-    lst_add(&stack, start->value);
     return (stack);
 }
 
