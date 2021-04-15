@@ -1,21 +1,22 @@
 #include "push_swap.h"
 
-static short is_sorted(t_element *start, t_element *end, short order)
+static short is_sorted(t_element *start, int len, short order)
 {
     t_element *next;
 
-    while (start->next != end)
+    while (len > 1)
     {
         next = start->next;
         if (order == UP && start->value > next->value)
         {
             return (0);
         }
-        if (order == DES && start->value < next->value)
+        if (order == DOWN && start->value < next->value)
         {
             return (0);
         }
         start = next;
+        len--;
     }
     return (1);
 }
@@ -43,13 +44,17 @@ static int split_a(t_element **stack_a, t_element **stack_b,
 {
     int rot_rev;
     int split_len;
+    int half_len;
 
+    half_len = len / 2;
     rot_rev = 0;
     split_len = 0;
     if (*stack_a)
     {
         while (len)
         {
+            if (split_len >= half_len)
+                break;
             if ((*stack_a)->value < pivot->value)
             {
                 push_b(stack_a, stack_b);
@@ -79,13 +84,18 @@ static int split_b(t_element **stack_a, t_element **stack_b,
 {
     int rot_rev;
     int split_len;
+    int half_len;
 
+    half_len = len / 2;
+    rot_rev = 0;
     rot_rev = 0;
     split_len = 0;
     if (*stack_b)
     {
         while (len)
         {
+            if (split_len >= half_len)
+                break;
             if ((*stack_b)->value >= pivot->value)
             {
                 push_a(stack_a, stack_b);
@@ -150,11 +160,14 @@ static void push_swap(t_element **stack_a, t_element **stack_b,
     }
     else if (stack_id == 'a' && len > 2)
     {
-        pivot = mid_el(*stack_a, len);
-        split_len = split_a(stack_a, stack_b, len, pivot);
-        push_swap(stack_a, stack_b, split_len, 'b');
-        push_swap(stack_a, stack_b, len - split_len, 'a');
-        undo_split_b(stack_a, stack_b, split_len);
+        if (!is_sorted(*stack_a, len, UP))
+        {
+            pivot = mid_el(*stack_a, len);
+            split_len = split_a(stack_a, stack_b, len, pivot);
+            push_swap(stack_a, stack_b, split_len, 'b');
+            push_swap(stack_a, stack_b, len - split_len, 'a');
+            undo_split_b(stack_a, stack_b, split_len);
+        }
     }
     else if (stack_id == 'b' && len == 2)
     {
@@ -166,11 +179,14 @@ static void push_swap(t_element **stack_a, t_element **stack_b,
     }
     else if (stack_id == 'b' && len > 2)
     {
-        pivot = mid_el(*stack_b, len);
-        split_len = split_b(stack_a, stack_b, len, pivot);
-        push_swap(stack_a, stack_b, split_len, 'a');
-        push_swap(stack_a, stack_b, len - split_len, 'b');
-        undo_split_a(stack_a, stack_b, split_len);
+        if (!is_sorted(*stack_b, len, DOWN))
+        {
+            pivot = mid_el(*stack_b, len);
+            split_len = split_b(stack_a, stack_b, len, pivot);
+            push_swap(stack_a, stack_b, split_len, 'a');
+            push_swap(stack_a, stack_b, len - split_len, 'b');
+            undo_split_a(stack_a, stack_b, split_len);
+        }
     }
 }
 
@@ -185,6 +201,7 @@ int main(int argc, char **argv)
     stack_a = crt_stack(&argv[1]);
     stack_b = NULL;
     push_swap(&stack_a, &stack_b, lst_len(stack_a) + 1, 'a');
+    //printf("%d\n", is_sorted(stack_a, lst_len(stack_a), UP));
 //    printf("\nRESULT\n");
 //    lst_print("[A] ", stack_a);
 //    lst_print("[B] ", stack_b);

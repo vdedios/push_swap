@@ -2,7 +2,7 @@
 # define PUSH_SWAP_H
 
 # define UP 1
-# define DES 2
+# define DOWN 2
 
 #include "../instructions/instructions.h"
 #include "../common/common.h"
