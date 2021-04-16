@@ -45,7 +45,11 @@ static int split_a(t_element **stack_a, t_element **stack_b,
     int rot_rev;
     int split_len;
     int half_len;
+    int stack_len;
+    int init_len;
 
+    stack_len = lst_len(*stack_a) + 1;
+    init_len = len;
     half_len = len / 2;
     rot_rev = 0;
     split_len = 0;
@@ -55,7 +59,7 @@ static int split_a(t_element **stack_a, t_element **stack_b,
         {
             if (split_len >= half_len)
                 break;
-            if ((*stack_a)->value < pivot->value)
+            if ((*stack_a)->value <= pivot->value)
             {
                 push_b(stack_a, stack_b);
                 ft_putstr_fd("pb\n", 1);
@@ -63,7 +67,8 @@ static int split_a(t_element **stack_a, t_element **stack_b,
             }
             else
             {
-                rot_rev++;
+                if (stack_len < init_len)
+                    rot_rev++;
                 rot_a(stack_a, stack_b);
                 ft_putstr_fd("ra\n", 1);
             }
@@ -85,7 +90,11 @@ static int split_b(t_element **stack_a, t_element **stack_b,
     int rot_rev;
     int split_len;
     int half_len;
+    int stack_len;
+    int init_len;
 
+    stack_len = lst_len(*stack_a) + 1;
+    init_len = len;
     half_len = len / 2;
     rot_rev = 0;
     rot_rev = 0;
@@ -104,7 +113,8 @@ static int split_b(t_element **stack_a, t_element **stack_b,
             }
             else
             {
-                rot_rev++;
+                if (stack_len < init_len)
+                    rot_rev++;
                 rot_b(stack_a, stack_b);
                 ft_putstr_fd("rb\n", 1);
             }
