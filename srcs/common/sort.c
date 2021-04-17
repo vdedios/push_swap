@@ -2,7 +2,7 @@
 
 void sort(t_element *instructions, t_element **stack_a, t_element **stack_b)
 {
-	static void (*f_instructions[])(t_element **stack_a, t_element **stack_b) = {
+	static void (*f_instructions[])(t_element **stack_a, t_element **stack_b, int prnt) = {
         &swap_a, &swap_b, &swap_ab,
         &rot_a, &rot_b, &rot_ab,
         &rot_rev_a, &rot_rev_b, &rot_rev_ab,
@@ -13,9 +13,9 @@ void sort(t_element *instructions, t_element **stack_a, t_element **stack_b)
     {
         while (instructions->next)
         {
-            f_instructions[instructions->value](stack_a, stack_b);
+            f_instructions[instructions->value](stack_a, stack_b, 0);
             instructions = instructions->next;
         }
-        f_instructions[instructions->value](stack_a, stack_b);
+        f_instructions[instructions->value](stack_a, stack_b, 0);
     }
 }

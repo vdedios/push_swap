@@ -41,6 +41,7 @@ size_t      lst_len(t_element *stack)
         stack = stack->next;
         len++;
     }
+    len++;
     return(len);
 }
 

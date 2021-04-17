@@ -15,20 +15,26 @@ static void rot(t_element **stack)
     }
 }
 
-void rot_a(t_element **stack_a, t_element **stack_b)
+void rot_a(t_element **stack_a, t_element **stack_b, int prnt)
 {
     (void)stack_b;
     rot(stack_a);
+    if (prnt)
+        ft_putstr_fd("ra\n", 1);
 }
 
-void rot_b(t_element **stack_a, t_element **stack_b)
+void rot_b(t_element **stack_a, t_element **stack_b, int prnt)
 {
     (void)stack_a;
     rot(stack_b);
+    if (prnt)
+        ft_putstr_fd("rb\n", 1);
 }
 
-void rot_ab(t_element **stack_a, t_element **stack_b)
+void rot_ab(t_element **stack_a, t_element **stack_b, int prnt)
 {
     rot(stack_a);
     rot(stack_b);
+    if (prnt)
+        ft_putstr_fd("rr\n", 1);
 }
