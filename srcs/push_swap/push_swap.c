@@ -50,6 +50,18 @@ static short        is_max_or_min(t_element *stack)
            || (short)(sorted->value == stack->value));
 }
 
+static void         rot_and_split_to_b(t_element **a, t_element **b, int len)
+{
+    while (len)
+    {
+        if ((*a)->n_val == 0 || (*a)->n_val == lst_last(*a)->n_val + 1)
+            rot_a(a, b, 1);
+        else
+            push_b(a, b, 1);
+        len--;
+    }
+}
+
 static void         split_to_b(t_element **a, t_element **b, int len)
 {
     t_element   *sorted;
@@ -186,7 +198,7 @@ static void         rotate_maxs(t_element **a, t_element **b)
 
 static void         back_split(t_element **a, t_element **b, int len)
 {
-    if (len > 16)
+    if (len > 20)
     {
         split_to_a(a, b, len);
         back_split(a, b, lst_len(*b));
@@ -215,7 +227,10 @@ static int          chunk_len(t_element *a)
 
 static void         push_swap(t_element **a, t_element **b, int len)
 {
-    split_to_b(a, b, len);
+    if (len > 20)
+        split_to_b(a, b, len);
+    else
+        rot_and_split_to_b(a, b, len);
     back_split(a, b, lst_len(*b));
     if ((*a)->n_val)
         push_swap(a, b, chunk_len(*a));
