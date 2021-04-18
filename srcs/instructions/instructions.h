@@ -8,6 +8,7 @@
 typedef struct	s_element {
     int         value;
     int         n_val;
+    short       chunk_limit;
     void        *next;
 }				t_element;
 

@@ -30,27 +30,54 @@ static t_element *sort_part_stack(t_element *start, int len)
     return (stack);
 }
 
+static void     new_chunk_limit(t_element *stack, t_element *limit)
+{
+    while (limit && stack && stack->next != limit)
+        stack = stack->next;
+    if (stack && limit)
+        stack->chunk_limit = 1;
+}
+
 static void split_to_b(t_element **a, t_element **b, int len)
 {
-    t_element *sorted;
-    t_element *pivot;
+    t_element   *sorted;
+    t_element   *pivot;
+    t_element   *limit;
+    int         rot;
+    int         stack_len;
 
+    rot = 0;
+    stack_len = lst_len(*a);
     sorted = sort_part_stack(*a, len);
     pivot = lst_goto(sorted, len / 2);
+    limit = NULL;
     while (lst_len(*b) <= len / 2)
     {
+        if ((*a)->chunk_limit)
+            limit = (*a)->next;
         if ((*a)->value <= pivot->value)
             push_b(a, b, 1);
         else
+        {
+            if (len < stack_len)
+                rot++;
             rot_a(a, b, 1);
+        }
     }
+    while (rot)
+    {
+        rot_rev_a(a, b, 1);
+        rot--;
+    }
+    new_chunk_limit(*a, limit);
 }
 
 static void split_to_a(t_element **a, t_element **b, int len)
 {
-    t_element *sorted;
-    t_element *pivot;
-    int pushed;
+    t_element   *sorted;
+    t_element   *pivot;
+    int         pushed;
+    int         limit; 
 
     if (!(*b)->next)
     {
@@ -60,10 +87,16 @@ static void split_to_a(t_element **a, t_element **b, int len)
     sorted = sort_part_stack(*b, len);
     pivot = lst_goto(sorted, len / 2);
     pushed = 0;
-    while (pushed < len / 2)
+    limit = 1;
+    while ((*b) && pushed <= len / 2)
     {
         if ((*b)->value >= pivot->value)
         {
+            if (limit)
+            {
+                (*b)->chunk_limit = 1;
+                limit = 0;
+            }
             push_a(a, b, 1);
             pushed++;
         }
@@ -128,11 +161,27 @@ static void back_split(t_element **a, t_element **b, int len)
     }
 }
 
+static int  chunk_len(t_element *a)
+{
+    int len;
+
+    len = 0;
+    while (a && !a->chunk_limit && a->n_val)
+    {
+        a = a->next;
+        len++;
+    }
+    if (a->n_val)
+        len++;
+    return (len);
+}
+
 static void push_swap(t_element **a, t_element **b, int len)
 {
     split_to_b(a, b, len);
     back_split(a, b, lst_len(*b));
-    //push_swap(a, b, len);
+    if ((*a)->n_val)
+        push_swap(a, b, chunk_len(*a));
 }
 
 static void find_and_replace(t_element *source, t_element *dest, int value)
