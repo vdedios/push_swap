@@ -31,7 +31,7 @@ size_t      lst_len(t_element *stack)
 {
     size_t len;
 
-    len = 0;
+   len = 0;
     if (!stack)
     {
         return (0);

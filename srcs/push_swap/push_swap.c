@@ -1,6 +1,6 @@
 #include "push_swap.h"
 
-static short is_sorted(t_element *start, int len, short order)
+static short        is_sorted(t_element *start, int len, short order)
 {
     t_element *next;
 
@@ -21,7 +21,7 @@ static short is_sorted(t_element *start, int len, short order)
     return (1);
 }
 
-static t_element *sort_part_stack(t_element *start, int len)
+static t_element    *sort_part_stack(t_element *start, int len)
 {
     t_element *stack;
 
@@ -30,7 +30,7 @@ static t_element *sort_part_stack(t_element *start, int len)
     return (stack);
 }
 
-static void     new_chunk_limit(t_element *stack, t_element *limit)
+static void         new_chunk_limit(t_element *stack, t_element *limit)
 {
     while (limit && stack && stack->next != limit)
         stack = stack->next;
@@ -38,7 +38,19 @@ static void     new_chunk_limit(t_element *stack, t_element *limit)
         stack->chunk_limit = 1;
 }
 
-static void split_to_b(t_element **a, t_element **b, int len)
+static short        is_max_or_min(t_element *stack)
+{
+    t_element   *sorted;
+    int         len;
+
+    len = lst_len(stack);
+    sorted = sort_part_stack(stack, len);
+    return ((short)(lst_last(sorted)->value == lst_last(stack)->value)
+           || (short)(lst_last(sorted)->value == stack->value)
+           || (short)(sorted->value == stack->value));
+}
+
+static void         split_to_b(t_element **a, t_element **b, int len)
 {
     t_element   *sorted;
     t_element   *pivot;
@@ -66,13 +78,16 @@ static void split_to_b(t_element **a, t_element **b, int len)
     }
     while (rot)
     {
-        rot_rev_a(a, b, 1);
+        if (is_max_or_min(*b))
+            rot_rev_a(a, b, 1);
+        else
+            rot_rev_ab(a, b, 1);
         rot--;
     }
     new_chunk_limit(*a, limit);
 }
 
-static void split_to_a(t_element **a, t_element **b, int len)
+static void         split_to_a(t_element **a, t_element **b, int len)
 {
     t_element   *sorted;
     t_element   *pivot;
@@ -97,6 +112,8 @@ static void split_to_a(t_element **a, t_element **b, int len)
                 (*b)->chunk_limit = 1;
                 limit = 0;
             }
+            else
+                (*b)->chunk_limit = 0;
             push_a(a, b, 1);
             pushed++;
         }
@@ -113,7 +130,26 @@ static void split_to_a(t_element **a, t_element **b, int len)
     }
 }
 
-static void conquer_back(t_element **a, t_element **b, int len)
+static void         rot_towards_max(t_element **a, t_element **b,
+                                    t_element *max, int len)
+{
+    int         d;
+    t_element   *aux;
+
+    d = 0;
+    aux = *b;
+    while (aux && aux->value != max->value)
+    {
+        aux = aux->next;
+        d++;
+    }
+    if (d < len / 2)
+        rot_b(a, b, 1);
+    else
+        rot_rev_b(a, b, 1);
+}
+
+static void         conquer_back(t_element **a, t_element **b, int len)
 {
     t_element *sorted;
     t_element *max;
@@ -135,21 +171,22 @@ static void conquer_back(t_element **a, t_element **b, int len)
             len--;
         }
         else
-            rot_b(a, b, 1);
-        //smart rotate?
+           rot_towards_max(a, b, max, len);
+           // rev_rot_b(a, b, 1);
+            //rot_b(a, b, 1);
     }
 }
 
-static void rotate_maxs(t_element **a, t_element **b)
+static void         rotate_maxs(t_element **a, t_element **b)
 {
     while((*a)->next && (*a)->n_val == lst_last(*a)->n_val + 1)
         rot_a(a, b, 1);
 
 }
 
-static void back_split(t_element **a, t_element **b, int len)
+static void         back_split(t_element **a, t_element **b, int len)
 {
-    if (len > 20)
+    if (len > 16)
     {
         split_to_a(a, b, len);
         back_split(a, b, lst_len(*b));
@@ -161,7 +198,7 @@ static void back_split(t_element **a, t_element **b, int len)
     }
 }
 
-static int  chunk_len(t_element *a)
+static int          chunk_len(t_element *a)
 {
     int len;
 
@@ -176,7 +213,7 @@ static int  chunk_len(t_element *a)
     return (len);
 }
 
-static void push_swap(t_element **a, t_element **b, int len)
+static void         push_swap(t_element **a, t_element **b, int len)
 {
     split_to_b(a, b, len);
     back_split(a, b, lst_len(*b));
@@ -184,7 +221,7 @@ static void push_swap(t_element **a, t_element **b, int len)
         push_swap(a, b, chunk_len(*a));
 }
 
-static void find_and_replace(t_element *source, t_element *dest, int value)
+static void         find_and_replace(t_element *source, t_element *dest, int value)
 {
     while (dest && source->value != dest->value)
         dest = dest->next;
@@ -192,7 +229,7 @@ static void find_and_replace(t_element *source, t_element *dest, int value)
         dest->n_val = value;
 }
 
-static void normalize(t_element **el)
+static void         normalize(t_element **el)
 {
     int len;
     int i;
@@ -208,7 +245,7 @@ static void normalize(t_element **el)
     }
 }
 
-int main(int argc, char **argv)
+int                 main(int argc, char **argv)
 {
     t_element *a;
     t_element *b;
