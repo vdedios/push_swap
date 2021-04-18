@@ -5,12 +5,9 @@
 #include "./../../dependencies/libft/libft.h"
 #include "./../../dependencies/get_next_line/get_next_line.h"
 
-# define STACK_LAST(A, L) lst_goto(A, L)
-# define STACK_MIDDLE(A, L) lst_goto(A, L / 2)
-# define STACK_FIRST(A) (A)
-
 typedef struct	s_element {
     int         value;
+    int         n_val;
     void        *next;
 }				t_element;
 

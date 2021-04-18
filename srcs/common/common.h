@@ -31,6 +31,7 @@ t_element   *read_instructions();
 */
 
 void            lst_print(char *msg, t_element *stack);
+void            lst_print_norm(char *msg, t_element *stack);
 void            lst_add(t_element **stack, int value);
 
 /*
