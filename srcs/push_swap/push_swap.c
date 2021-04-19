@@ -99,7 +99,7 @@ static void         split_to_b(t_element **a, t_element **b, int len)
     new_chunk_limit(*a, limit);
 }
 
-static short         left_values(t_element *b, t_element *pivot)
+static short         is_left_values(t_element *b, t_element *pivot)
 {
     while (b)
     {
@@ -114,7 +114,6 @@ static void         split_to_a(t_element **a, t_element **b, int len)
 {
     t_element   *sorted;
     t_element   *pivot;
-    int         pushed;
     int         limit; 
     int         half;
 
@@ -125,9 +124,8 @@ static void         split_to_a(t_element **a, t_element **b, int len)
     }
     sorted = sort_part_stack(*b, len);
     pivot = lst_goto(sorted, len / 2);
-    pushed = 0;
     limit = 1;
-    while ((*b) && left_values(*b, pivot))
+    while ((*b) && is_left_values(*b, pivot))
     {
         if ((*b)->value > pivot->value)
         {
@@ -139,7 +137,6 @@ static void         split_to_a(t_element **a, t_element **b, int len)
             else
                 (*b)->chunk_limit = 0;
             push_a(a, b, 1);
-            pushed++;
         }
         else
         {
@@ -147,7 +144,6 @@ static void         split_to_a(t_element **a, t_element **b, int len)
             {
                 push_a(a, b, 1);
                 rot_a(a, b, 1);
-                //pushed++;
             }
             else
                 rot_b(a, b, 1);
@@ -255,7 +251,7 @@ static void         find_and_replace(t_element *source, t_element *dest, int val
         dest->n_val = value;
 }
 
-static void         normalize(t_element **el)
+void         normalize(t_element **el)
 {
     int len;
     int i;
@@ -271,6 +267,7 @@ static void         normalize(t_element **el)
     }
 }
 
+/*
 int                 main(int argc, char **argv)
 {
     t_element *a;
@@ -284,4 +281,4 @@ int                 main(int argc, char **argv)
     normalize(&a);
     push_swap(&a, &b, lst_len(a));
     return (0);
-}
+}*/

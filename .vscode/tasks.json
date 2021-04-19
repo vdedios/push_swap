@@ -13,6 +13,15 @@
             }
         },
         {
+            "label": "Checker",
+            "type": "shell",
+            "command": "cd ~/Desktop/42/push_swap/srcs &&  gcc -g checker/checker.c ../dependencies/libft/libft.a ./common/crt_stack.c ./common/user.c ./common/stack_utils.c ./instructions/utils.c ../dependencies/get_next_line/get_next_line.c ./common/read_instructions.c ./common/sort.c ./instructions/rot.c ./instructions/rot_rev.c ./instructions/swap.c ./instructions/push.c ./push_swap/push_swap.c ./push_swap/merge_sort.c",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
             "label": "Close terminal",
             "type": "shell",
             "command": "killall -SIGTERM Terminal"
