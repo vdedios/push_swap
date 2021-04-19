@@ -99,12 +99,24 @@ static void         split_to_b(t_element **a, t_element **b, int len)
     new_chunk_limit(*a, limit);
 }
 
+static short         left_values(t_element *b, t_element *pivot)
+{
+    while (b)
+    {
+        if (b->value > pivot->value)
+            return (1);
+        b = b->next;
+    }
+    return (0);
+}
+
 static void         split_to_a(t_element **a, t_element **b, int len)
 {
     t_element   *sorted;
     t_element   *pivot;
     int         pushed;
     int         limit; 
+    int         half;
 
     if (!(*b)->next)
     {
@@ -115,9 +127,9 @@ static void         split_to_a(t_element **a, t_element **b, int len)
     pivot = lst_goto(sorted, len / 2);
     pushed = 0;
     limit = 1;
-    while ((*b) && pushed <= len / 2)
+    while ((*b) && left_values(*b, pivot))
     {
-        if ((*b)->value >= pivot->value)
+        if ((*b)->value > pivot->value)
         {
             if (limit)
             {
@@ -135,6 +147,7 @@ static void         split_to_a(t_element **a, t_element **b, int len)
             {
                 push_a(a, b, 1);
                 rot_a(a, b, 1);
+                //pushed++;
             }
             else
                 rot_b(a, b, 1);
@@ -184,8 +197,6 @@ static void         conquer_back(t_element **a, t_element **b, int len)
         }
         else
            rot_towards_max(a, b, max, len);
-           // rev_rot_b(a, b, 1);
-            //rot_b(a, b, 1);
     }
 }
 
