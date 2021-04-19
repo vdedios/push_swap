@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/srcs/a.out",
-            "args": ["-v", "47", "48", "10"],
+            "args": ["-v", "50", "48", "10"],
             // 12,12s/\d+/"$&",/g
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/srcs",
