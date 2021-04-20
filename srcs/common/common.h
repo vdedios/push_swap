@@ -9,7 +9,7 @@
 #include "./../../dependencies/get_next_line/get_next_line.h"
 
 typedef struct	s_op {
-    short       visualize;
+    int         visualize;
     short       print;
     short       count;
 }				t_op;

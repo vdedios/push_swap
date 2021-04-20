@@ -5,14 +5,16 @@ static void print_element(int value)
     char *char_value;
 
     char_value = ft_itoa(value);
-    write(1, char_value, ft_strlen(char_value));
-    write(1, " ", 1);
+    printf("%s ", char_value);
+    //write(1, char_value, ft_strlen(char_value));
+    //write(1, " ", 1);
     free(char_value);
 }
 
 void        lst_print(char *msg, t_element *stack)
 {
-    ft_putstr_fd(msg, 1);
+    //ft_putstr_fd(msg, 1);
+    printf("%s", msg);
     if (stack)
     {
         while (stack->next)
@@ -21,7 +23,8 @@ void        lst_print(char *msg, t_element *stack)
             stack = stack->next;
         }
         print_element(stack->value);
-        write(1, "\n", 1);
+        //write(1, "\n", 1);
+        printf("\n");
     }
     else
     {

@@ -58,15 +58,6 @@ static short read_options(char **argv, t_op *options)
     return (1);
 }
 
-static  void    op_print(t_element *a, t_element *b, t_op options)
-{
-    if (options.print)
-    {
-        lst_print("[STACK A]:\n", a);
-        lst_print("[STACK B]:\n", b);
-    }
-}
-
 static  void    op_count(t_element *instructions, t_op options)
 {
     int len;
@@ -98,9 +89,10 @@ int         main(int argc, char **argv)
         a = crt_stack(&argv[1]);
     b = NULL;
     normalize(&a);
+    if (options.visualize)
+        options.visualize = lst_len(a);
     instructions = read_instructions();
     sort(instructions, &a, &b, options);
-    op_print(a, b, options);
     op_count(instructions, options);
     inspect_order(a, b);
     return (0);
