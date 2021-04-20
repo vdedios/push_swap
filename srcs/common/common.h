@@ -10,6 +10,7 @@
 
 typedef struct	s_op {
     int         visualize;
+    int         frame_delay;
     short       print;
     short       count;
 }				t_op;
@@ -19,6 +20,8 @@ typedef struct	s_rgb {
     int         g;
     int         b;
 }				t_rgb;
+
+int		    simple_atoi(const char *nptr);
 
 /*
 ** User interface

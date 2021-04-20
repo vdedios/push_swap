@@ -11,7 +11,7 @@ static void         iterate(const char *nptr, long *num)
 	}
 }
 
-static int		    simple_atoi(const char *nptr)
+int		    simple_atoi(const char *nptr)
 {
 	long	num;
 	short	sign;

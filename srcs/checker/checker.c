@@ -25,37 +25,77 @@ static void inspect_order(t_element *stack_a, t_element *stack_b)
 
 static void usage()
 {
-    printf("usage: ./checker [-v] [-s] [-c]\n\n");
+    printf("usage: ./checker [-v:<frame_delay>] [-p:<frame_delay>] [-c]\n\n");
     printf("Check push_swap output:\n");
-    printf("-v: visualize operations\n");
+    printf("-v: visualize operations.\n");
     printf("-p: print stacks after exexuting instructions\n");
     printf("-c: print number of push_swap instruction\n\n");
+    printf("NOTE: [-v] and [-p] cannot coexist\n\n");
     exit(1);
+}
+
+static short    string_is_num(char *str)
+{
+    if (*str != '-')
+        str++;
+    while (*str)
+    {
+        if (!ft_isdigit(*str))
+            return (0);
+        str++;
+    }
+    return (1);
+}
+
+static void get_frame_delay(char *argv, t_op *options)
+{
+    while (*argv && *argv != ':')
+        argv++;
+    argv++;
+    if (!string_is_num(argv))
+        error();
+    options->frame_delay = simple_atoi(argv);
+}
+
+static void extract_option(char *argv, t_op *options)
+{
+    if (ft_strncmp(argv, "-h", 3) == 0)
+        usage();
+    else if (ft_strncmp(argv, "-v:", 3) == 0)
+    {
+        if (options->visualize || options->frame_delay)
+            error();
+        get_frame_delay(argv, options);
+        options->visualize = 1;
+    }
+    else if (ft_strncmp(argv, "-p:", 3) == 0)
+    {
+        if (options->print || options->frame_delay)
+            error();
+        get_frame_delay(argv, options);
+        options->print = 1;
+    }
+    else if (ft_strncmp(argv, "-c", 3) == 0)
+    {
+        if (options->count)
+            error();
+        options->count = 1;
+    }
+    else
+        error();
 }
 
 static short read_options(char **argv, t_op *options)
 {
-    size_t i;
+    short i;
 
     i = 0;
-    if ((*argv)[i] != '-' && !ft_isalpha((*argv)[i + 1]))
-        return (0);
-    i++;
-    while ((*argv)[i])
+    while (argv[i] && !string_is_num(argv[i]))
     {
-        if ((*argv)[i] == 'h')
-            usage();
-        else if ((*argv)[i] == 'v')
-            options->visualize = 1;
-        else if ((*argv)[i] == 'p')
-            options->print = 1;
-        else if ((*argv)[i] == 'c')
-            options->count = 1;
-        else
-            error();
+        extract_option(argv[i], options);
         i++;
     }
-    return (1);
+    return (i);
 }
 
 static  void    op_count(t_element *instructions, t_op options)
@@ -70,7 +110,7 @@ static  void    op_count(t_element *instructions, t_op options)
             instructions = instructions->next;
             len++;
         }
-        printf("[INSTRUCTIONS]: %d\n", len);
+        printf("[N_INSTRUCTIONS]: %d\n", len);
     }
 }
 
@@ -83,10 +123,7 @@ int         main(int argc, char **argv)
 
     if (argc < 2)
         exit(0);
-    if (read_options(&argv[1], &options))
-        a = crt_stack(&argv[2]);
-    else
-        a = crt_stack(&argv[1]);
+    a = crt_stack(&argv[1 + read_options(&argv[1], &options)]);
     b = NULL;
     normalize(&a);
     if (options.visualize)

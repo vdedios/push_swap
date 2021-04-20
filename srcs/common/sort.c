@@ -85,12 +85,12 @@ static void visualize_frame(t_element *a, t_element *b, int max)
 
 static  void    op_print(t_element *a, t_element *b, t_op options)
 {
-    if (options.print && !options.visualize)
+    if (options.print)
     {
         printf("\033[H\033[J");
         lst_print("\n[STACK A]:\n", a);
         lst_print("\n[STACK B]:\n", b);
-        usleep(50000);
+        usleep(options.frame_delay * 1000);
     }
 }
 
@@ -99,7 +99,7 @@ static  void    op_visualize(t_element *a, t_element *b, t_op options)
     if (options.visualize)
     {
         visualize_frame(a, b, options.visualize);
-        usleep(50000);
+        usleep(options.frame_delay * 1000);
     }
 }
 
