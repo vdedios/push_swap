@@ -2,9 +2,9 @@
 # define INSTRUCTIONS_H
 
 #include <stdlib.h>
-#include "./common.h"
-#include "./../../dependencies/libft/libft.h"
-#include "./../../dependencies/get_next_line/get_next_line.h"
+#include "./../common.h"
+#include "./../../../dependencies/libft/libft.h"
+#include "./../../../dependencies/get_next_line/get_next_line.h"
 
 /*
 ** Instructions

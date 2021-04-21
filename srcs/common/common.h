@@ -4,7 +4,7 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <string.h>
-#include "./instructions.h"
+#include "./instructions/instructions.h"
 #include "./../../dependencies/libft/libft.h"
 #include "./../../dependencies/get_next_line/get_next_line.h"
 
