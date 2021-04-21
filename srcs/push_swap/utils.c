@@ -1,13 +1,5 @@
 #include "./push_swap.h"
 
-void         find_and_replace(t_element *source, t_element *dest, int value)
-{
-    while (dest && source->value != dest->value)
-        dest = dest->next;
-    if (dest)
-        dest->n_val = value;
-}
-
 short        is_sorted(t_element *start, int len, short order)
 {
     t_element *next;

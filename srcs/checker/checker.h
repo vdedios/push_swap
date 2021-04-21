@@ -1,8 +1,7 @@
 #ifndef CHECKER_H
 # define CHECKER_H
 
-#include "./../common/common.h"
-#include "./../common/instructions.h"
+#include "common.h"
 
 typedef struct	s_op {
     int         visualize;

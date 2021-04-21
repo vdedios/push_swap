@@ -1,6 +1,6 @@
 #include "./push_swap.h"
 
-static void         new_chunk_limit(t_element *stack, t_element *limit)
+void         new_chunk_limit(t_element *stack, t_element *limit)
 {
     while (limit && stack && stack->next != limit)
         stack = stack->next;
@@ -8,7 +8,7 @@ static void         new_chunk_limit(t_element *stack, t_element *limit)
         stack->chunk_limit = 1;
 }
 
-static void         set_chunk_limit(t_element **b, int *is_limit_set)
+void         set_chunk_limit(t_element **b, int *is_limit_set)
 {
     if (*is_limit_set)
     {
@@ -21,7 +21,7 @@ static void         set_chunk_limit(t_element **b, int *is_limit_set)
     }
 }
 
-static int          chunk_len(t_element *a)
+int          chunk_len(t_element *a)
 {
     int len;
 

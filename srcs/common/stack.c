@@ -1,23 +1,11 @@
 #include "common.h"
 
-static void         iterate(const char *nptr, long *num)
+static void         find_and_replace(t_element *source, t_element *dest, int value)
 {
-	while (*nptr)
-	{
-        if (!ft_isdigit(*nptr))
-            error();
-		*num = (*num) * 10 + *nptr - '0';
-		nptr++;
-	}
-}
-
-static void         clean_matrix(char **str)
-{
-    while (*str)
-    {
-        free(*str);
-        str++;
-    }
+    while (dest && source->value != dest->value)
+        dest = dest->next;
+    if (dest)
+        dest->n_val = value;
 }
 
 t_element           *extract_stack(t_element *start, int len)
@@ -45,6 +33,15 @@ t_element           *crt_stack(char **els)
         els++;
     }
     clean_matrix(els);
+    return (stack);
+}
+
+t_element           *sort_part_stack(t_element *start, int len)
+{
+    t_element *stack;
+
+    stack = extract_stack(start, len);
+    stack = merge_sort(stack);
     return (stack);
 }
 

@@ -1,10 +1,10 @@
 #include "instructions.h"
 
-size_t      lst_len(t_element *stack)
+int      lst_len(t_element *stack)
 {
-    size_t len;
+    int len;
 
-   len = 0;
+    len = 0;
     if (!stack)
     {
         return (0);
@@ -18,9 +18,9 @@ size_t      lst_len(t_element *stack)
     return(len);
 }
 
-size_t      lst_len_end(t_element *stack, t_element *end)
+int      lst_len_end(t_element *stack, t_element *end)
 {
-    size_t len;
+    int len;
 
     len = 0;
     if (!stack)

@@ -65,7 +65,6 @@ void                visualize_frame(t_element *a, t_element *b, int max)
 {
     char a_v[1000];
     char b_v[1000];
-    t_rgb rgb;
 
     printf("\033[H\033[J");
     printf("%-*s", max + 15, "[STACK A]");

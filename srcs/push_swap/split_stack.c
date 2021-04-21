@@ -42,7 +42,6 @@ void                split_to_a(t_element **a, t_element **b, int len)
 {
     t_element   *pivot;
     int         is_limit_set; 
-    int         half;
 
     if (!(*b)->next)
     {
@@ -52,6 +51,7 @@ void                split_to_a(t_element **a, t_element **b, int len)
     pivot = get_pivot(b, len);
     is_limit_set = 0;
     while ((*b) && is_left_values(*b, pivot))
+    {
         if ((*b)->value > pivot->value)
         {
             set_chunk_limit(b, &is_limit_set);
@@ -60,10 +60,11 @@ void                split_to_a(t_element **a, t_element **b, int len)
         else
         {
             if ((*b)->n_val == 0 || (*b)->n_val == lst_last(*a)->n_val + 1)
-                remove_b(a, b);
+                remove_b(a, b, 1);
             else
                 rot_b(a, b, 1);
         }
+    }
 }
 
 void                back_split(t_element **a, t_element **b, int len)

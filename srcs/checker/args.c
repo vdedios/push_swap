@@ -1,4 +1,4 @@
-#include "./checker.h"
+#include "checker.h"
 
 static short    string_is_num(char *str)
 {

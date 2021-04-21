@@ -22,12 +22,3 @@ void         sort_three(t_element **a, t_element **b)
     else
         rot_rev_a(a, b, 1);
 }
-
-t_element    *sort_part_stack(t_element *start, int len)
-{
-    t_element *stack;
-
-    stack = extract_stack(start, len);
-    stack = merge_sort(stack);
-    return (stack);
-}

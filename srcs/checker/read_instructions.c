@@ -1,4 +1,4 @@
-#include "common.h"
+#include "checker.h"
 
 static int      get_code(char *instruction)
 {

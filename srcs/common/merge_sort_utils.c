@@ -21,11 +21,11 @@ void         remove_a(t_element **stack_a, t_element **stack_b, int *a_len)
     *a_len -= 1;
 }
 
-void         remove_b(t_element **stack_a, t_element **stack_b)
+void         remove_b(t_element **stack_a, t_element **stack_b, int ptr)
 {
 
-    push_a(stack_a, stack_b, 0);
-    rot_a(stack_a, stack_b, 0);
+    push_a(stack_a, stack_b, ptr);
+    rot_a(stack_a, stack_b, ptr);
 }
 
 short        two_els(t_element **stack_a, t_element **stack_b)
@@ -33,7 +33,7 @@ short        two_els(t_element **stack_a, t_element **stack_b)
     if (!(*stack_a)->next && !(*stack_b)->next)
     {
         if ((*stack_a)->value < (*stack_b)->value)
-            remove_b(stack_a, stack_b);
+            remove_b(stack_a, stack_b, 0);
         else
             push_a(stack_a, stack_b, 0);
         return (1);

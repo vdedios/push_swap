@@ -13,12 +13,12 @@ static t_element    *merge(t_element *stack_a, t_element *stack_b)
         if (stack_a->value < stack_b->value)
             remove_a(&stack_a, &stack_b, &a_len);
         else
-            remove_b(&stack_a, &stack_b);
+            remove_b(&stack_a, &stack_b, 0);
     }
     while (a_len > 0)
         remove_a(&stack_a, &stack_b, &a_len);
     while (stack_b)
-        remove_b(&stack_a, &stack_b);
+        remove_b(&stack_a, &stack_b, 0);
     return (stack_a);
 }
 
