@@ -82,6 +82,8 @@ checker: 		$(OBJ_DIR) $(CHECKER_OBJS) $(COMMON_OBJS)
 .PHONY:			clean
 clean:
 				@rm -rf $(OBJ_DIR)
+				@rm -rf checker
+				@rm -rf push_swap
 
 .PHONY:			fclean
 fclean: 		clean
