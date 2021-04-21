@@ -290,10 +290,35 @@ static void         sort_three(t_element **a, t_element **b)
         rot_rev_a(a, b, 1);
 }
 
+static void         split_to_b_small(t_element **a, t_element **b, int len)
+{
+    short limit;
+
+    if (len == 4)
+        limit = 1;
+    else
+        limit = 2;
+    while (lst_len(*b) < limit)
+    {
+        if ((*a)->n_val > 2)
+            push_b(a, b, 1);
+        else
+            rot_a(a, b, 1);
+    }
+    if ((*b)->next && (*b)->value > ((t_element *)(*b)->next)->value)
+            rot_b(a, b, 1);
+}
+
 static void         push_swap_small(t_element **a, t_element **b, int len)
 {
     if (len <= 3)
         sort_three(a, b);
+    else
+    {
+        split_to_b_small(a, b, len);
+        sort_three(a, b);
+        back_split(a, b, lst_len(*b));
+    }
 }
 
 int                 main(int argc, char **argv)
