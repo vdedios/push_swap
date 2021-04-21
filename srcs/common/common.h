@@ -16,7 +16,7 @@ typedef struct	s_element {
 }				t_element;
 
 /*
-** User interface
+** Err
 */
 
 void            error();
