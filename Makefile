@@ -35,7 +35,7 @@ COMMON_FILES= error.c \
 
 PUSH_SWAP_FILES= chunk.c \
 				 push_swap.c \
-				 sort.c \
+				 sort_three.c \
 				 split_back.c \
 				 split_stack.c \
 				 utils.c			
