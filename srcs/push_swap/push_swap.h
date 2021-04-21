@@ -16,9 +16,18 @@ typedef struct	s_chunk {
 
 
 /*
-** Common sorting algorithms
+** Merge sort algorithm
 */
 
 t_element    *merge_sort(t_element *stack_a);
+
+/*
+** Merge sort util functions
+*/
+
+t_element    *split_stack(t_element **stack, int len);
+void         remove_a(t_element **stack_a, t_element **stack_b, int *a_len);
+void         remove_b(t_element **stack_a, t_element **stack_b);
+short        two_els(t_element **stack_a, t_element **stack_b);
 
 #endif
