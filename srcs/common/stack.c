@@ -47,3 +47,19 @@ t_element           *crt_stack(char **els)
     clean_matrix(els);
     return (stack);
 }
+
+void                normalize(t_element **el)
+{
+    int len;
+    int i;
+    t_element *sorted;
+
+    i = -1;
+    len = lst_len(*el);
+    sorted = sort_part_stack(*el, lst_len(*el));
+    while (++i < len)
+    {
+        find_and_replace(sorted, *el, i);
+        sorted = sorted->next;
+    }
+}
