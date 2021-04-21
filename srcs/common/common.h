@@ -22,24 +22,11 @@ typedef struct	s_element {
 void            error();
 
 /*
-** Stack creation
+** Stack operations
 */
 
 t_element       *crt_stack(char **els);
 t_element       *extract_stack(t_element *start, int len);
-
-/*
-** Stack utils
-*/
-
-void            lst_print(char *msg, t_element *stack);
-void            lst_print_norm(char *msg, t_element *stack);
-void            lst_add(t_element **stack, int value);
-size_t          lst_len(t_element *stack);
-size_t          lst_len_end(t_element *stack, t_element *end);
-t_element       *lst_goto(t_element *stack, short pos);
-t_element       *lst_last(t_element *stack);
-
 
 /*
 ** Sorting
