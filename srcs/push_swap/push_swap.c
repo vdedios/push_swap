@@ -251,7 +251,7 @@ static void         find_and_replace(t_element *source, t_element *dest, int val
         dest->n_val = value;
 }
 
-void         normalize(t_element **el)
+void                normalize(t_element **el)
 {
     int len;
     int i;
@@ -267,7 +267,35 @@ void         normalize(t_element **el)
     }
 }
 
-/*
+static void         sort_three(t_element **a, t_element **b)
+{
+    t_element *next;
+
+    next = (*a)->next;
+    if ((*a)->n_val == 1 && !next->n_val)
+        swap_a(a, b, 1);
+    else if ((*a)->n_val == 2 && next->n_val)
+    {
+        swap_a(a, b, 1);
+        rot_rev_a(a, b, 1);
+    }
+    else if ((*a)->n_val == 2 && !next->n_val)
+        rot_a(a, b, 1);
+    else if (!(*a)->n_val && next->n_val == 2)
+    {
+        swap_a(a, b, 1);
+        rot_a(a, b, 1);
+    }
+    else
+        rot_rev_a(a, b, 1);
+}
+
+static void         push_swap_small(t_element **a, t_element **b, int len)
+{
+    if (len <= 3)
+        sort_three(a, b);
+}
+
 int                 main(int argc, char **argv)
 {
     t_element *a;
@@ -279,6 +307,12 @@ int                 main(int argc, char **argv)
     a = crt_stack(&argv[1]);
     b = NULL;
     normalize(&a);
-    push_swap(&a, &b, lst_len(a));
+    len = lst_len(a);
+    if (is_sorted(a, len, UP))
+        exit(0);
+    if (len <= 5)
+        push_swap_small(&a, &b, len);
+    else
+        push_swap(&a, &b, len);
     return (0);
-}*/
+}
