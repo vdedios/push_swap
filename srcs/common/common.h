@@ -4,24 +4,16 @@
 #include <stdlib.h>
 #include <limits.h>
 #include <string.h>
-#include "./../instructions/instructions.h"
+#include "./instructions.h"
 #include "./../../dependencies/libft/libft.h"
 #include "./../../dependencies/get_next_line/get_next_line.h"
 
-typedef struct	s_op {
-    int         visualize;
-    int         frame_delay;
-    short       print;
-    short       count;
-}				t_op;
-
-typedef struct	s_rgb {
-    int         r;
-    int         g;
-    int         b;
-}				t_rgb;
-
-int		    simple_atoi(const char *nptr);
+typedef struct	s_element {
+    int         value;
+    int         n_val;
+    short       chunk_limit;
+    void        *next;
+}				t_element;
 
 /*
 ** User interface
@@ -49,6 +41,11 @@ t_element       *read_instructions();
 void            lst_print(char *msg, t_element *stack);
 void            lst_print_norm(char *msg, t_element *stack);
 void            lst_add(t_element **stack, int value);
+size_t          lst_len(t_element *stack);
+size_t          lst_len_end(t_element *stack, t_element *end);
+t_element       *lst_goto(t_element *stack, short pos);
+t_element       *lst_last(t_element *stack);
+
 
 /*
 ** Sorting
@@ -56,7 +53,12 @@ void            lst_add(t_element **stack, int value);
 
 void            sort(t_element *instructions, t_element **stack_a,
                         t_element **stack_b, t_op options);
-
 void            normalize(t_element **el);
+
+/*
+** Util functions
+*/
+
+int		    simple_atoi(const char *nptr);
 
 #endif

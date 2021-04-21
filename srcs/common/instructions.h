@@ -2,24 +2,9 @@
 # define INSTRUCTIONS_H
 
 #include <stdlib.h>
+#include "./common.h"
 #include "./../../dependencies/libft/libft.h"
 #include "./../../dependencies/get_next_line/get_next_line.h"
-
-typedef struct	s_element {
-    int         value;
-    int         n_val;
-    short       chunk_limit;
-    void        *next;
-}				t_element;
-
-/*
-** Instructions util functions
-*/
-
-t_element       *lst_goto(t_element *stack, short pos);
-t_element       *lst_last(t_element *stack);
-size_t          lst_len(t_element *stack);
-size_t          lst_len_end(t_element *stack, t_element *end);
 
 /*
 ** Instructions
