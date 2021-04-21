@@ -29,12 +29,6 @@ t_element       *crt_stack(char **els);
 t_element       *extract_stack(t_element *start, int len);
 
 /*
-** Instruction set creation
-*/
-
-t_element       *read_instructions();
-
-/*
 ** Stack utils
 */
 
@@ -51,14 +45,12 @@ t_element       *lst_last(t_element *stack);
 ** Sorting
 */
 
-void            sort(t_element *instructions, t_element **stack_a,
-                        t_element **stack_b, t_op options);
 void            normalize(t_element **el);
 
 /*
 ** Util functions
 */
 
-int		    simple_atoi(const char *nptr);
+int		        simple_atoi(const char *nptr);
 
 #endif

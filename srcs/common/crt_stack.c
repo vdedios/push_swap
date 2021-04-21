@@ -11,24 +11,6 @@ static void         iterate(const char *nptr, long *num)
 	}
 }
 
-int		    simple_atoi(const char *nptr)
-{
-	long	num;
-	short	sign;
-
-	sign = 1;
-	num = 0;
-	if (*nptr == '-')
-    {
-		sign = -1;
-        nptr++;
-    }
-	iterate(nptr, &num);
-    if ((sign * num) > INT_MAX || (sign * num) < INT_MIN)
-        error();
-	return ((int)(sign * num));
-}
-
 static void         clean_matrix(char **str)
 {
     while (*str)
@@ -64,4 +46,22 @@ t_element           *crt_stack(char **els)
     }
     clean_matrix(els);
     return (stack);
+}
+
+int		            simple_atoi(const char *nptr)
+{
+	long	num;
+	short	sign;
+
+	sign = 1;
+	num = 0;
+	if (*nptr == '-')
+    {
+		sign = -1;
+        nptr++;
+    }
+	iterate(nptr, &num);
+    if ((sign * num) > INT_MAX || (sign * num) < INT_MIN)
+        error();
+	return ((int)(sign * num));
 }

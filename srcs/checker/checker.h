@@ -18,6 +18,19 @@ typedef struct	s_rgb {
 }				t_rgb;
 
 /*
+** Sorting
+*/
+
+void        sort(t_element *instructions, t_element **a,
+                    t_element **b, t_op options);
+
+/*
+** Instructions
+*/
+
+t_element   *read_instructions();
+
+/*
 ** Argument options
 */
 
