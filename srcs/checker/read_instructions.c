@@ -55,7 +55,7 @@ t_element	*read_instructions(void)
 	read = get_next_line(&line);
 	while (read)
 	{
-		if (*line && *line !='\n')
+		if (*line && *line != '\n')
 			add_instruction(&instructions, line);
 		free(line);
 		read = get_next_line(&line);
