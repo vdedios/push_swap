@@ -39,7 +39,7 @@ t_element	*read_instructions(void);
 ** Argument options
 */
 
-short		read_options(char **argv, t_op *options);
+short		read_options(char **argv, t_op *options, int argc);
 
 /*
 ** Options

@@ -33,7 +33,7 @@ void		normalize(t_element **el);
 ** Util functions
 */
 
-int			simple_atoi(const char *nptr);
+int			simple_atoi(char *nptr);
 void		clean_matrix(char **str);
 
 /*

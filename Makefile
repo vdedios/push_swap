@@ -1,12 +1,15 @@
 # ENVS
 
+SHELL=bash
+
 LIBFT=libft
 CHECKER=checker
 PUSH_SWAP=push_swap
 
-CFLAGS=-Wall -Wextra -Werror
-CFLAGS+=-Isrcs/checker -Isrcs/common -Isrcs/common/instructions -Isrcs/common/lst_operations -Isrcs/common/get_next_line -I$(LIB_DIR)
-LFLAGS=-L$(LIB_DIR) -lft
+CC=gcc
+CFLAGS=-g -Wall -Wextra -Werror
+CFLAGS+= -Isrcs/checker -Isrcs/common -Isrcs/common/instructions -Isrcs/common/lst_operations -Isrcs/common/get_next_line -I$(LIB_DIR)
+LFLAGS= -L$(LIB_DIR) -lft
 
 SRC_DIR=srcs/
 OBJ_DIR=objs/
@@ -51,6 +54,7 @@ CHECKER_OBJS=$(addprefix $(OBJ_DIR)$(CHECKER_DIR), $(CHECKER_FILES:.c=.o))
 COMMON_OBJS=$(addprefix $(OBJ_DIR)$(COMMON_DIR), $(COMMON_FILES:.c=.o))
 PUSH_SWAP_OBJS=$(addprefix $(OBJ_DIR)$(PUSH_SWAP_DIR), $(PUSH_SWAP_FILES:.c=.o))
 
+
 # TARGETS
 .PHONY:			all
 all: 			$(OBJ_DIR)  $(COMMON_OBJS) $(LIBFT) $(CHECKER) $(PUSH_SWAP)
@@ -74,7 +78,6 @@ $(OBJ_DIR)$(CHECKER_DIR)%.o:	$(SRC_DIR)$(CHECKER_DIR)%.c
 $(OBJ_DIR)$(PUSH_SWAP_DIR)%.o:	$(SRC_DIR)$(PUSH_SWAP_DIR)%.c
 				@$(CC) $(CFLAGS) -c $< -o $@
 
-
 $(PUSH_SWAP): 	$(PUSH_SWAP_OBJS)
 				@printf "Building push_swap..."
 				@$(CC) $(CFLAGS) $(LFLAGS) $(PUSH_SWAP_OBJS) $(COMMON_OBJS) -o $@
@@ -94,8 +97,8 @@ $(LIBFT):
 clean:
 				@printf "Removing objs..."
 				@rm -rf $(OBJ_DIR)
-				@rm -rf checker
-				@rm -rf push_swap
+				@rm -rf checker*
+				@rm -rf push_swap*
 				@printf " ✔︎\n"
 
 .PHONY:			fclean

@@ -22,16 +22,17 @@ void	op_visualize(t_element *a, t_element *b, t_op options)
 
 void	op_count(t_element *instructions, t_op options)
 {
-	int	len;
+	int			len;
+	t_element	*aux;
 
-	if (options.count)
+	len = 0;
+	while (instructions)
 	{
-		len = 0;
-		while (instructions)
-		{
-			instructions = instructions->next;
-			len++;
-		}
-		printf("[N_INSTRUCTIONS]: %d\n", len);
+		aux = instructions;
+		instructions = instructions->next;
+		free(aux);
+		len++;
 	}
+	if (options.count)
+		printf("[N_INSTRUCTIONS]: %d\n", len);
 }

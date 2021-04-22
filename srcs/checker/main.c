@@ -9,7 +9,7 @@ int	main(int argc, char **argv)
 
 	if (argc < 2)
 		exit(0);
-	a = crt_stack(&argv[1 + read_options(&argv[1], &options)]);
+	a = crt_stack(&argv[1 + read_options(&argv[1], &options, argc)]);
 	b = NULL;
 	normalize(&a);
 	if (options.visualize)

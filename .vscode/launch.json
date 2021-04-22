@@ -8,16 +8,15 @@
             "name": "(lldb) Iniciar",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/srcs/a.out",
-            "args": ["-c", "-v:300", "48", "10"],
+            "program": "${workspaceFolder}/push_swap",
+            "args": ["1", "2", "3"],
             // 12,12s/\d+/"$&",/g
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/srcs",
             "environment": [],
             "externalConsole": true,
             "MIMode": "lldb",
-            //"preLaunchTask": "Build",
-            "preLaunchTask": "Checker",
+            "preLaunchTask": "Build",
             "postDebugTask": "Close terminal"
         }
     ]

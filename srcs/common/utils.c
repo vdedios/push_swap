@@ -1,6 +1,6 @@
 #include "common.h"
 
-static void	iterate(const char *nptr, long *num)
+static void	iterate(char *nptr, long *num)
 {
 	while (*nptr)
 	{
@@ -11,7 +11,7 @@ static void	iterate(const char *nptr, long *num)
 	}
 }
 
-int	simple_atoi(const char *nptr)
+int	simple_atoi(char *nptr)
 {
 	long	num;
 	short	sign;
@@ -23,6 +23,7 @@ int	simple_atoi(const char *nptr)
 		sign = -1;
 		nptr++;
 	}
+	//trim_spaces(nptr);
 	iterate(nptr, &num);
 	if ((sign * num) > INT_MAX || (sign * num) < INT_MIN)
 		error();

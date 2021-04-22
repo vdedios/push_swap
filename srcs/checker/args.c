@@ -62,7 +62,7 @@ static void	extract_option(char *argv, t_op *options)
 		error();
 }
 
-short	read_options(char **argv, t_op *options)
+short	read_options(char **argv, t_op *options, int argc)
 {
 	short	i;
 
@@ -72,5 +72,7 @@ short	read_options(char **argv, t_op *options)
 		extract_option(argv[i], options);
 		i++;
 	}
+	if (argc <= i + 1)
+		error();
 	return (i);
 }
