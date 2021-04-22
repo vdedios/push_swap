@@ -10,25 +10,26 @@ SRC	=	 ft_isdigit.c 		\
 			 ft_itoa.c 		\
 			 ft_putstr_fd.c 	\
 			 ft_strlen.c 		\
-			 ft_strncmp.c 		\
+			 ft_strncmp.c 
 
 OBJS	 =	$(SRC:%.c=%.o)
 
 all	:	$(NAME)
 
 $(NAME)	: 	$(OBJS) libft.h
-	$(AR) $(NAME) $(OBJS)
+	@printf "Building libft:... "
+	@$(AR) $(NAME) $(OBJS)
+	@printf " ✔︎\n"
 
 %.o	:	%.c
-	$(CC) $(CFLAGS) -c $< -o $@ -I.
-
+	@$(CC) $(CFLAGS) -c $< -o $@ -I.
 
 clean	:
-	rm -rf $(OBJS) $(OBJ_BONUS)
+	@rm -rf $(OBJS) $(OBJ_BONUS)
 
 fclean	: 	clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re	:	fclean all
 
-.PHONY: clean fclean all re bonus
+.PHONY: clean fclean all re

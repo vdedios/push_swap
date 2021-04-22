@@ -1,4 +1,9 @@
 # ENVS
+
+LIBFT=libft
+CHECKER=checker
+PUSH_SWAP=push_swap
+
 CFLAGS=-Wall -Wextra -Werror
 CFLAGS+=-Isrcs/checker -Isrcs/common -Isrcs/common/instructions -Isrcs/common/lst_operations -Isrcs/common/get_next_line -I$(LIB_DIR)
 LFLAGS=-L$(LIB_DIR) -lft
@@ -48,7 +53,7 @@ PUSH_SWAP_OBJS=$(addprefix $(OBJ_DIR)$(PUSH_SWAP_DIR), $(PUSH_SWAP_FILES:.c=.o))
 
 # TARGETS
 .PHONY:			all
-all: 			checker push_swap
+all: 			$(OBJ_DIR)  $(COMMON_OBJS) $(LIBFT) $(CHECKER) $(PUSH_SWAP)
 
 $(OBJ_DIR):		
 				@mkdir -p $(OBJ_DIR)
@@ -69,27 +74,35 @@ $(OBJ_DIR)$(CHECKER_DIR)%.o:	$(SRC_DIR)$(CHECKER_DIR)%.c
 $(OBJ_DIR)$(PUSH_SWAP_DIR)%.o:	$(SRC_DIR)$(PUSH_SWAP_DIR)%.c
 				@$(CC) $(CFLAGS) -c $< -o $@
 
+
+$(PUSH_SWAP): 	$(PUSH_SWAP_OBJS)
+				@printf "Building push_swap..."
+				@$(CC) $(CFLAGS) $(LFLAGS) $(PUSH_SWAP_OBJS) $(COMMON_OBJS) -o $@
+				@printf " ✔︎\n"
+
+$(CHECKER): 	$(CHECKER_OBJS)
+				@printf "Building checker..."
+				@$(CC) $(CFLAGS) $(LFLAGS) $(CHECKER_OBJS) $(COMMON_OBJS) -o $@
+				@printf " ✔︎\n"
+				
+$(LIBFT):	
+				@make -C $(LIB_DIR)
+
 # RULES
-
-.PHONY:			push_swap
-push_swap: 		$(OBJ_DIR) $(PUSH_SWAP_OBJS) $(COMMON_OBJS)
-				@make -C $(LIB_DIR)
-				$(CC) $(CFLAGS) $(LFLAGS) $(PUSH_SWAP_OBJS) $(COMMON_OBJS) -o push_swap
-
-.PHONY:			checker
-checker: 		$(OBJ_DIR) $(CHECKER_OBJS) $(COMMON_OBJS)
-				@make -C $(LIB_DIR)
-				$(CC) $(CFLAGS) $(LFLAGS) $(CHECKER_OBJS) $(COMMON_OBJS) -o checker
 
 .PHONY:			clean
 clean:
+				@printf "Removing objs..."
 				@rm -rf $(OBJ_DIR)
 				@rm -rf checker
 				@rm -rf push_swap
+				@printf " ✔︎\n"
 
 .PHONY:			fclean
 fclean: 		clean
+				@printf "Removing libft..."
 				@make fclean -C $(LIB_DIR) 
+				@printf " ✔︎\n"
 
 .PHONY:			re
 re: 			fclean all
