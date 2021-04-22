@@ -27,6 +27,7 @@ void	lst_add(t_element **stack, int value)
 		{
 			check_el_duplicate(*stack, value);
 			new->value = value;
+			new->chunk_limit = 0;
 			new->next = NULL;
 			if (!*stack)
 				*stack = new;

@@ -23,7 +23,6 @@ int	simple_atoi(char *nptr)
 		sign = -1;
 		nptr++;
 	}
-	//trim_spaces(nptr);
 	iterate(nptr, &num);
 	if ((sign * num) > INT_MAX || (sign * num) < INT_MIN)
 		error();
