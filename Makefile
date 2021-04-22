@@ -5,12 +5,13 @@ LFLAGS=-L$(LIB_DIR) -lft
 
 SRC_DIR=srcs/
 OBJ_DIR=objs/
-LIB_DIR=dependencies/libft
+LIB_DIR=dependencies/mini_libft
 COMMON_DIR=common/
 PUSH_SWAP_DIR=push_swap/
 CHECKER_DIR=checker/
 
-CHECKER_FILES= args.c \
+CHECKER_FILES= main.c \
+			   args.c \
 			   checker.c \
 			   options.c \
 			   read_instructions.c \
@@ -33,7 +34,8 @@ COMMON_FILES= error.c \
 			  lst_operations/lst_print.c \
 			  get_next_line/get_next_line.c
 
-PUSH_SWAP_FILES= chunk.c \
+PUSH_SWAP_FILES= main.c \
+				 chunk.c \
 				 push_swap.c \
 				 sort_three.c \
 				 split_back.c \

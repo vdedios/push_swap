@@ -17,6 +17,8 @@ typedef struct s_chunk {
 ** Push swap sorting functions
 */
 
+void	push_swap_small(t_element **a, t_element **b, int len);
+void	push_swap(t_element **a, t_element **b, int len);
 void	sort_three(t_element **a, t_element **b);
 
 /*

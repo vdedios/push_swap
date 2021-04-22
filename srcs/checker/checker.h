@@ -17,6 +17,12 @@ typedef struct s_rgb {
 }		t_rgb;
 
 /*
+** Checker
+*/
+
+void		checker(t_element *stack_a, t_element *stack_b);
+
+/*
 ** Sorting
 */
 
