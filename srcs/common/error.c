@@ -1,7 +1,7 @@
 #include "common.h"
 
-void    error()
+void	error(void)
 {
-    ft_putstr_fd("Error\n", 2);
-    exit(127);
+	ft_putstr_fd("Error\n", 2);
+	exit(127);
 }

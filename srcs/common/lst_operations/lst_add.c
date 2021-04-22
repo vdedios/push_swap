@@ -1,37 +1,40 @@
 #include "common.h"
 
-static void check_el_duplicate(t_element *stack, int value)
+static void	check_el_duplicate(t_element *stack, int value)
 {
-    if (stack)
-    {
-        while (stack->next)
-        {
-            if (value == stack->value)
-                error();
-            stack = stack->next;
-        }
-        if (value == stack->value)
-            error();
-    }
+	if (stack)
+	{
+		while (stack->next)
+		{
+			if (value == stack->value)
+				error();
+			stack = stack->next;
+		}
+		if (value == stack->value)
+			error();
+	}
 }
 
-void        lst_add(t_element **stack, int value)
+void	lst_add(t_element **stack, int value)
 {
-    t_element *new;
-    t_element *last;
+	t_element	*new;
+	t_element	*last;
 
-    if (stack)
-        if ((new = malloc(sizeof(t_element))))
-        {
-            check_el_duplicate(*stack, value);
-            new->value = value;
-            new->next = NULL;
-            if (!*stack)
-                *stack = new;
-            else
-            {
-                last = lst_last(*stack);
-                last->next = new;
-            }
-        }
+	if (stack)
+	{
+		new = malloc(sizeof(t_element));
+		if (new)
+		{
+			check_el_duplicate(*stack, value);
+			new->value = value;
+			new->next = NULL;
+			if (!*stack)
+				*stack = new;
+			else
+			{
+				last = lst_last(*stack);
+				last->next = new;
+			}
+		}
+	}
 }

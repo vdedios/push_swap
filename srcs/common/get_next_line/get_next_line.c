@@ -2,13 +2,14 @@
 
 char	*add_char(char *line, char buffer)
 {
-	char *output;
-	int	 l;
+	char	*output;
+	int		l;
 
 	l = 0;
 	while (line && line[l])
 		l++;
-	if (!(output = malloc((l + 2) * sizeof(char))))
+	output = malloc((l + 2) * sizeof(char));
+	if (!output)
 		return (NULL);
 	l = 0;
 	while (line && line[l])
@@ -22,12 +23,13 @@ char	*add_char(char *line, char buffer)
 	return (output);
 }
 
-int		get_next_line(char **line)
+int	get_next_line(char **line)
 {
-	int 	output;
+	int		output;
 	char	buffer;
 
-	if (!(*line = malloc(sizeof(char))))
+	*line = malloc(sizeof(char));
+	if (!line)
 		return (-1);
 	buffer = 0;
 	**line = '\0';
@@ -37,8 +39,9 @@ int		get_next_line(char **line)
 		if (output == -1)
 			return (-1);
 		if (buffer == '\n')
-			break;
-		if (!(*line = add_char(*line, buffer)))
+			break ;
+		*line = add_char(*line, buffer);
+		if (!(*line))
 			return (-1);
 		output = read(0, &buffer, 1);
 	}
