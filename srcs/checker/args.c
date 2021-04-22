@@ -2,7 +2,7 @@
 
 static short	string_is_num(char *str)
 {
-	if (*str != '-')
+	if (*str == '-')
 		str++;
 	while (*str)
 	{
