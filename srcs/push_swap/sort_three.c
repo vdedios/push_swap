@@ -5,6 +5,8 @@ void	sort_three(t_element **a, t_element **b)
 	t_element	*next;
 
 	next = (*a)->next;
+	if (is_sorted(*a, 3, UP))
+		return ;
 	if ((*a)->n_val == 1 && !next->n_val)
 		swap_a(a, b, 1);
 	else if ((*a)->n_val == 2 && next->n_val)

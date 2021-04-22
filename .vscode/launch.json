@@ -8,8 +8,8 @@
             "name": "(lldb) Iniciar",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/checker",
-            "args": ["-1", "2", "0"],
+            "program": "${workspaceFolder}/push_swap",
+            "args": ["3", "4", "5", "1", "2"],
             // 12,12s/\d+/"$&",/g
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}/srcs",
