@@ -37,7 +37,7 @@ You must sort a stack of numbers using only two stacks: A, the main one and B, a
 
     [-v] and [-p] cannot coexist
 
-**Note :** `push_swap` program is the responsable of calculating all the necessary instructions while `checker` is responsable of checking if output instructions are ok. This means, stack A get sorted after aplying them and stack B is empty. You must pipe one into another like:
+**Note :** `push_swap` program is the responsable of calculating all the necessary instructions while `checker` is responsable of checking if output instructions are ok. This means, stack A get sorted after applying them and stack B is empty. You must pipe one into another like:
 
 ```bash
     ./push_swap <set_of_numbers> | ./checker <set_of_numbers>
