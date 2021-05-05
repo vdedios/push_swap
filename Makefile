@@ -97,8 +97,8 @@ $(LIBFT):
 clean:
 				@printf "Removing objs..."
 				@rm -rf $(OBJ_DIR)
-				@rm -rf checker*
-				@rm -rf push_swap*
+				@rm -rf checker
+				@rm -rf push_swap
 				@printf " ✔︎\n"
 
 .PHONY:			fclean
