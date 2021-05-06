@@ -12,7 +12,6 @@ You must sort a stack of numbers using only two stacks: A, the main one and B, a
 - `swap`: swap the first two elements at the top of the stack.
 - `rotate`: place the first element of the stack in the last position.
 - `rotate reverse`: place the last element of the stack in the first position.
-- `rotate reverse`: place the last element of the stack in the first position.
 
 ## Usage
 
